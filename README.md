@@ -1,6 +1,6 @@
 # ClearBrowserCache
 
-PowerShell-скрипт по очистке кеша браузеров и временных файлов. Основано на коде - https://github.com/lemtek/Powershell.
+PowerShell-скрипт по очистке кеша браузеров и временных файлов. Основано на коде - https://github.com/lemtek/Powershell. Произведена руссификация, добавление браузеров и некоторые другие изменения.
 
 ***
 
