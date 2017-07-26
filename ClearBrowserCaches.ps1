@@ -1,13 +1,14 @@
-﻿Clear-Host
+Clear-Host
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
 Write-Host -ForegroundColor Yellow "Очистка кеша браузеров (PowerShell)"
 Write-Host -ForegroundColor Yellow "(c) AnSt. Март 2017"
-Write-Host -ForegroundColor Yellow "Версия: 0.7 (Июнь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.8 (Июль 2017)"
 ""
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
 Write-Host -ForegroundColor Green "Изменения:
+v0.8(июль 2017):	Добавление очистки Корзины на разных дисках
 v0.7(Июнь 2017):	Добавлена очистка Яндекс.Браузер, Opera
 v0.6:	Предупреждение о закрытие браузеров
 v0.5:   Использование функций
@@ -102,9 +103,11 @@ Function Clear_IE ($a) {
 # Clear RecileBin & Temp
 
 Function Clear_Temp ($a) {
-    #Clear-RecycleBin -Force
+    #Clear-RecycleBin -Force -Verbose
     $Path_RecicleBin = 'C' + ':\$Recycle.Bin'
-    Get-ChildItem $Path_RecicleBin -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Exclude *.ini -ErrorAction SilentlyContinue
+    $Path_RecicleBin_D = 'D' + ':\$Recycle.Bin'
+    Get-ChildItem $Path_RecicleBin -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Exclude *.ini -ErrorAction SilentlyContinue -Verbose
+    Get-ChildItem $Path_RecicleBin_D -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Exclude *.ini -ErrorAction SilentlyContinue -Verbose
     Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -EA SilentlyContinue -Verbose
     Import-Csv -Path $a | Foreach {
         Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -EA SilentlyContinue -Verbose
