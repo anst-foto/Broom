@@ -1,6 +1,8 @@
+[![Github Releases](https://img.shields.io/github/downloads/atom/atom/latest/total.svg)](https://github.com/anst-foto/ClearBrowserCache)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/anst-foto/ClearBrowserCache)
+[![Github file size](https://img.shields.io/github/size/webcaetano/craft/build/phaser-craft.min.js.svg)](https://github.com/anst-foto/ClearBrowserCache)
+
 # ClearBrowserCache
-[![Github All Releases](https://img.shields.io/github/downloads/atom/atom/total.svg)](https://github.com/anst-foto/ClearBrowserCache)
-[![Pub](https://img.shields.io/pub/v/box2d.svg)](https://github.com/anst-foto/ClearBrowserCache)
 
 PowerShell-скрипт по очистке кеша браузеров и временных файлов. Основано на коде - https://github.com/lemtek/Powershell. Произведена руссификация, добавление браузеров и некоторые другие изменения.
 
