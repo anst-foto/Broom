@@ -2,12 +2,14 @@ Clear-Host
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
 Write-Host -ForegroundColor Yellow "Очистка кеша браузеров, RecycleBin, Temp (PowerShell)"
-Write-Host -ForegroundColor Yellow "(c) AnSt. Март 2017"
-Write-Host -ForegroundColor Yellow "Версия: 0.10 (Сентябрь 2017)"
+Write-Host -ForegroundColor Yellow "(c) AnSt. 2017"
+Write-Host -ForegroundColor Yellow "MIT License"
+Write-Host -ForegroundColor Yellow "Версия: 0.11 (Сентябрь 2017)"
 ""
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
 Write-Host -ForegroundColor Green "Изменения:
+v0.11(Сентябрь 2017):	Очистка Корзины на старых системах
 v0.10(Сентябрь 2017):	Добавление меню режимов очистки
 v0.9(Июль 2017):	Добавление удаления файла со списком пользователей
 v0.8(Июль 2017):	Переделана функция по очистке Корзины
@@ -104,7 +106,11 @@ Function Clear_IE ($a) {
 # Clear RecileBin & Temp
 
 Function Clear_Temp ($a) {
-    Clear-RecycleBin -Force
+    $Drives = Get-PSDrive -PSProvider FileSystem
+    Foreach ($Drive in $Drives) {
+            $Path_RecicleBin = $Drive.ToString() + ':\$Recycle.Bin'            
+            Get-ChildItem  -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Exclude *.ini -ErrorAction SilentlyContinue -Verbose
+    }
     Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
     Import-Csv -Path $a | Foreach {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
@@ -324,7 +330,7 @@ Function ClearFull {
     	""
     	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
     	Write-Host -ForegroundColor Cyan
-    	Clear_Temp ($Path)    	
+    	Clear_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     	Write-Host -ForegroundColor Magenta "Очистка завершена!"
     	""		
