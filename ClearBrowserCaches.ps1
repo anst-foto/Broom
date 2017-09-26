@@ -1,14 +1,41 @@
-Clear-Host
+﻿Clear-Host
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
-Write-Host -ForegroundColor Yellow "Очистка кеша браузеров, RecycleBin, Temp (PowerShell)"
+Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) AnSt. 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.11 (Сентябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.12 (Сентябрь 2017)"
 ""
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
+
+Write-Host -ForegroundColor Gray "*******************************************************"
+Write-Host -ForegroundColor Gray "MIT License
+
+Copyright (c) 2017 Starinin Andrey
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the `'Software`'), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED `'AS IS`', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE."
+Write-Host -ForegroundColor Gray "*******************************************************"
+""
+
 Write-Host -ForegroundColor Green "Изменения:
+v0.12(Сентябрь 2017):	Добавление информации о лицензии (MIT License)
 v0.11(Сентябрь 2017):	Очистка Корзины на старых системах
 v0.10(Сентябрь 2017):	Добавление меню режимов очистки
 v0.9(Июль 2017):	Добавление удаления файла со списком пользователей
@@ -342,7 +369,7 @@ Function ClearFull {
 
 #########################
 
-Write-Host -ForegroundColor Magenta "Закройте все браузеры!"
+Write-Host -ForegroundColor Red "Закройте все браузеры!"
 Write-Host -ForegroundColor Gray "*******************************************************"
 ""
 Write-Host -ForegroundColor Yellow "Выберите режим очистки:"
