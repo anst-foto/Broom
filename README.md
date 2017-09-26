@@ -14,7 +14,7 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 ***
 
 ## Изменения:
-[CHANGELOG.md](Broom/CHANGELOG.md)
+[CHANGELOG.md](https://github.com/anst-foto/Broom/blob/master/CHANGELOG.md)
 
 ***
 ## Что делает?
