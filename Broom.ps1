@@ -5,7 +5,12 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) AnSt. 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.13 (Сентябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.15 (Сентябрь 2017)"
+""
+Write-Host -ForegroundColor Gray "***"
+Write-Host -ForegroundColor Gray "Основано на коде - https://github.com/lemtek/Powershell"
+Write-Host -ForegroundColor Gray "By Lee Bhogal, Paradise Computing Ltd - June 2014"
+Write-Host -ForegroundColor Gray "***"
 ""
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
@@ -36,19 +41,21 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
-v0.13(Сентябрь 2017):	Переименование проекта, изменение иконки
-v0.12(Сентябрь 2017):	Добавление информации о лицензии (MIT License)
-v0.11(Сентябрь 2017):	Очистка Корзины на старых системах
-v0.10(Сентябрь 2017):	Добавление меню режимов очистки
-v0.9(Июль 2017):	Добавление удаления файла со списком пользователей
-v0.8(Июль 2017):	Переделана функция по очистке Корзины
-v0.7(Июнь 2017):	Добавлена очистка Яндекс.Браузер, Opera
+v0.15:	Переработана выводимая информация для пользователя
+v0.14:	Переработка алгоритма удаления Корзины
+v0.13:	Переименование проекта, изменение иконки
+v0.12:	Добавление информации о лицензии (MIT License)
+v0.11:	Очистка Корзины на старых системах
+v0.10:	Добавление меню режимов очистки
+v0.9:	Добавление удаления файла со списком пользователей
+v0.8:	Переделана функция по очистке Корзины
+v0.7:	Добавлена очистка Яндекс.Браузер, Opera
 v0.6:	Предупреждение о закрытие браузеров
 v0.5:	Использование функций
 v0.4:	Очистка Корзины на старых системах
 v0.3:	Ожидание нажатия пользователя
 v0.2:	Очистка временных файлов пользователя
-v0.1(Март 2017):	Создание скрипта"
+v0.1:	Создание скрипта"
 ""
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
@@ -134,11 +141,11 @@ Function Clear_IE ($a) {
 
 # Clear RecileBin & Temp
 
-Function Clear_Temp ($a) {
+Function Clear_RecileBin_Temp ($a) {
     $Drives = Get-PSDrive -PSProvider FileSystem
     Foreach ($Drive in $Drives) {
-            $Path_RecicleBin = $Drive.ToString() + ':\$Recycle.Bin'            
-            Get-ChildItem  -Force -Recurse -ErrorAction SilentlyContinue | Remove-Item -Recurse -Exclude *.ini -ErrorAction SilentlyContinue -Verbose
+            $Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
+            Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose
     }
     Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
     Import-Csv -Path $a | Foreach {
@@ -152,6 +159,9 @@ Function Clear_Temp ($a) {
 # ClearBrowser
 
 Function ClearBrowser {
+
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров"
+	Write-Host -ForegroundColor DarkGreen "---------------------"
 	""
 	Write-Host -ForegroundColor Green "Создание списка пользователей"
 	Write-Host -ForegroundColor Green "---------------------------------------"
@@ -164,8 +174,6 @@ Function ClearBrowser {
 	""
 	#*******************************************************
 	""
-	Write-Host -ForegroundColor Green "Выполняется скрипт..."
-	Write-Host -ForegroundColor Green "---------------------"
 	If ($list) {
     	""
     	# Mozilla Firefox
@@ -190,7 +198,7 @@ Function ClearBrowser {
 
     	# Chromium
     	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "-------------------------------"
+    	Write-Host -ForegroundColor Green "------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -200,7 +208,7 @@ Function ClearBrowser {
 	
 		# Yandex
     	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "-------------------------------"
+    	Write-Host -ForegroundColor Green "------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -210,7 +218,7 @@ Function ClearBrowser {
 	
 		# Opera
     	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "-------------------------------"
+    	Write-Host -ForegroundColor Green "------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -220,7 +228,7 @@ Function ClearBrowser {
 
     	# Internet Explorer
     	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "----------------------------------------"
+    	Write-Host -ForegroundColor Green "------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -231,7 +239,7 @@ Function ClearBrowser {
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
 		
 	} Else {
-		Write-Host -ForegroundColor Yellow "Ошибка!"
+		Write-Host -ForegroundColor Red "Ошибка!"
 		Exit
     }
 }
@@ -241,6 +249,9 @@ Function ClearBrowser {
 # ClearRecileBinTemp
 
 Function ClearRecycleBinTemp {
+
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке Корзины и удалению временных файлов..."
+	Write-Host -ForegroundColor DarkGreen "---------------------"
 	""
 	Write-Host -ForegroundColor Green "Создание списка пользователей"
 	Write-Host -ForegroundColor Green "---------------------------------------"
@@ -253,16 +264,15 @@ Function ClearRecycleBinTemp {
 	""
 	#*******************************************************
 	""
-	Write-Host -ForegroundColor Green "Выполняется скрипт..."
-	Write-Host -ForegroundColor Green "---------------------"
+	
 	If ($list) {
 		# RecileBin & Temp
     	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "-----------------------------------------------------"
+    	Write-Host -ForegroundColor Green "---------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
     	Write-Host -ForegroundColor Cyan
-    	Clear_Temp ($Path)
+    	Clear_RecileBin_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     	Write-Host -ForegroundColor Magenta "Очистка завершена!"
     	""
@@ -277,7 +287,10 @@ Function ClearRecycleBinTemp {
 # ClearFull
 
 Function ClearFull {
-		""
+	
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов..."
+	Write-Host -ForegroundColor DarkGreen "---------------------"
+	""
 	Write-Host -ForegroundColor Green "Создание списка пользователей"
 	Write-Host -ForegroundColor Green "---------------------------------------"
 
@@ -289,8 +302,6 @@ Function ClearFull {
 	""
 	#*******************************************************
 	""
-	Write-Host -ForegroundColor Green "Выполняется скрипт..."
-	Write-Host -ForegroundColor Green "---------------------"
 	If ($list) {
     	""
     	# Mozilla Firefox
@@ -305,7 +316,7 @@ Function ClearFull {
 
     	# Google Chrome 
     	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
-    	Write-Host -ForegroundColor Green "------------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -315,7 +326,7 @@ Function ClearFull {
 
     	# Chromium
     	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "-------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -325,7 +336,7 @@ Function ClearFull {
 
 		# Yandex
     	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "-------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -335,7 +346,7 @@ Function ClearFull {
 
 		# Opera
     	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "-------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -345,7 +356,7 @@ Function ClearFull {
 
     	# Internet Explorer
     	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "----------------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
     	Write-Host -ForegroundColor Cyan
@@ -355,11 +366,11 @@ Function ClearFull {
 
 		# RecileBin & Temp
     	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "-----------------------------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
     	Write-Host -ForegroundColor Cyan
-    	Clear_Temp ($Path)
+    	Clear_RecileBin_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     	Write-Host -ForegroundColor Magenta "Очистка завершена!"
     	""		
@@ -372,6 +383,7 @@ Function ClearFull {
 #########################
 
 Write-Host -ForegroundColor Red "Закройте все браузеры!"
+""
 Write-Host -ForegroundColor Gray "*******************************************************"
 ""
 Write-Host -ForegroundColor Yellow "Выберите режим очистки:"
