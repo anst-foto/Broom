@@ -1,4 +1,6 @@
 ﻿[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/anst-foto/Broom/blob/master/LICENSE)
+![Language: PowerShell](https://img.shields.io/badge/language-PowerShell-blue.svg)
+
 
 # Broom (Метла)
 
