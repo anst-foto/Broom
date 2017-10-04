@@ -1,20 +1,23 @@
 ﻿[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/anst-foto/Broom/blob/master/LICENSE)
 ![Language: PowerShell](https://img.shields.io/badge/language-PowerShell-blue.svg)
 
+[![GitHub: Broom](https://img.shields.io/badge/GitHub-Broom-orange.svg)](https://github.com/anst-foto/Broom)
+[![Gallery TechNet: Broom](https://img.shields.io/badge/Gallery%20TechNet-Broom-orange.svg)](https://gallery.technet.microsoft.com/PowerShell-f24f32cb)
+[![PowerShell Gallery: Broom](https://img.shields.io/badge/PowerShell%20Gallery-Broom-orange.svg)](https://www.powershellgallery.com/packages/Broom)
 
 # Broom (Метла)
 
-PowerShell-скрипт по очистке кэша браузеров и Корзины, удалению временных файлов. Произведена руссификация, добавление браузеров характерных для России, введено пользовательское меню.
+PowerShell-скрипт по очистке кэша браузеров и Корзины, удалению временных файлов.
 
 ***
 
 *  **Очистка кэша и Корзины, удаление временных файлов (PowerShell)**
 *  **&copy; Starinin Andrey (AnSt), 2017**
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
-*  **Версия: 0.15 (Сентябрь 2017)**
+*  **Версия: 0.16 (Октябрь 2017)**
+*  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
 
-* **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)**
-* **By Lee Bhogal, Paradise Computing Ltd - June 2014**
+* **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
 
 ***
 
@@ -34,6 +37,11 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 * Яндекс.Браузер
 * Opera
 * Internet Explorer
+
+## Установка:
+Установка не требуется
+1. Скачавайте с репозитория GitHub zip-архив - https://github.com/anst-foto/Broom/archive/master.zip *Доступен EXE-файл и PS-скрипт*
+2. Сохраняете скрипт из PowerShell Gallery - `Save-Script -Name Broom -Path <path>`. *Доступен только PS-скрипт*
 
 ## Меню:
 1. Очистить только кэши браузеров
