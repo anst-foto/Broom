@@ -1,11 +1,56 @@
-﻿Clear-Host
+﻿<#PSScriptInfo
+
+.VERSION 0.16
+
+.GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
+
+.AUTHOR An.St.
+
+.COPYRIGHT © Starinin Andrey, 2017
+
+.LICENSEURI https://github.com/anst-foto/Broom/blob/master/LICENSE
+
+.PROJECTURI https://github.com/anst-foto/Broom
+
+.RELEASENOTES
+v0.16:  Добавление PSScriptInfo
+v0.15:	Переработана выводимая информация для пользователя
+v0.14:	Переработка алгоритма удаления Корзины
+v0.13:	Переименование проекта, изменение иконки
+v0.12:	Добавление информации о лицензии (MIT License)
+v0.11:	Очистка Корзины на старых системах
+v0.10:	Добавление меню режимов очистки
+v0.9:	Добавление удаления файла со списком пользователей
+v0.8:	Переделана функция по очистке Корзины
+v0.7:	Добавлена очистка Яндекс.Браузер, Opera
+v0.6:	Предупреждение о закрытие браузеров
+v0.5:	Использование функций
+v0.4:	Очистка Корзины на старых системах
+v0.3:	Ожидание нажатия пользователя
+v0.2:	Очистка временных файлов пользователя
+v0.1:	Создание скрипта
+
+#>
+
+<# 
+
+.DESCRIPTION 
+ Очистка кэша и Корзины, удаление временных файлов 
+
+#> 
+
+Clear-Host
+
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
 Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) AnSt. 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.15 (Сентябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.16 (Октябрь 2017)"
+Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
+Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
+Write-Host -ForegroundColor Gray "PowerShellGallery - https://www.powershellgallery.com/packages/Broom/0.15"
 ""
 Write-Host -ForegroundColor Gray "***"
 Write-Host -ForegroundColor Gray "Основано на коде - https://github.com/lemtek/Powershell"
@@ -41,6 +86,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.16:  Добавление PSScriptInfo
 v0.15:	Переработана выводимая информация для пользователя
 v0.14:	Переработка алгоритма удаления Корзины
 v0.13:	Переименование проекта, изменение иконки
