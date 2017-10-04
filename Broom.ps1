@@ -295,8 +295,8 @@ Function ClearFull {
 	Write-Host -ForegroundColor Green "---------------------------------------"
 
 	Write-Host -ForegroundColor Magenta "Сохранение списка пользователей в c:\users\%username%\users.csv"
+	
 	$Path = "C:\users\$env:USERNAME\users.csv"
-
 	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
 	$list = Test-Path $Path
 	""
