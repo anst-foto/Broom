@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.16
+.VERSION 0.17
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -13,6 +13,7 @@
 .PROJECTURI https://github.com/anst-foto/Broom
 
 .RELEASENOTES
+v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
 v0.16:  Добавление PSScriptInfo
 v0.15:	Переработана выводимая информация для пользователя
 v0.14:	Переработка алгоритма удаления Корзины
@@ -47,10 +48,11 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) AnSt. 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.16 (Октябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.17 (Октябрь 2017)"
+""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
-Write-Host -ForegroundColor Gray "PowerShellGallery - https://www.powershellgallery.com/packages/Broom/0.15"
+Write-Host -ForegroundColor Gray "PowerShellGallery - https://www.powershellgallery.com/packages/Broom"
 ""
 Write-Host -ForegroundColor Gray "***"
 Write-Host -ForegroundColor Gray "Основано на коде - https://github.com/lemtek/Powershell"
@@ -61,6 +63,7 @@ Write-Host -ForegroundColor Yellow "********************************************
 ""
 
 Write-Host -ForegroundColor Gray "*******************************************************"
+""
 Write-Host -ForegroundColor Gray "MIT License
 
 Copyright (c) 2017 Starinin Andrey
@@ -82,10 +85,12 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE."
+""
 Write-Host -ForegroundColor Gray "*******************************************************"
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
 v0.16:  Добавление PSScriptInfo
 v0.15:	Переработана выводимая информация для пользователя
 v0.14:	Переработка алгоритма удаления Корзины
