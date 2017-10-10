@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.18
+.VERSION 0.19
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -13,6 +13,7 @@
 .PROJECTURI https://github.com/anst-foto/Broom
 
 .RELEASENOTES
+v0.19:	Изменение выводимой информации
 v0.18:	Добавлено логирование сообщений в файл
 v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
 v0.16:  Добавление PSScriptInfo
@@ -46,7 +47,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.18 (Октябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.19 (Октябрь 2017)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -88,6 +89,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.19:	Изменение выводимой информации
 v0.18:	Добавлено логирование сообщений в файл
 v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
 v0.16:  Добавление PSScriptInfo
@@ -121,7 +123,6 @@ $Title2 = "Очищение только Корзины и удаление вр
 $Title3 = "Очищение кэша браузеров и Корзины с удалением временных файлов (RecycleBin & Temp)"
 $Title4 = "Отказ от очистки"
 $TitleMozilla = "Mozilla"
-$TitleChrome = "Chrome"
 $TitleChrome = "Chrome"
 $TitleChromium = "Chromium"
 $TitleYandex = "Yandex"
@@ -278,12 +279,9 @@ Function ClearBrowser {
 	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
 
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров"
-	Write-Host -ForegroundColor DarkGreen "---------------------"
+	Write-Host -ForegroundColor DarkGreen "____________________________________________"
 	""
-	Write-Host -ForegroundColor Green "Создание списка пользователей"
-	Write-Host -ForegroundColor Green "---------------------------------------"
-
-	Write-Host -ForegroundColor Magenta "Сохранение списка пользователей в c:\users\%username%\users.csv"
+	
 	$Path = "C:\users\$env:USERNAME\users.csv"
 
 	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
@@ -292,66 +290,77 @@ Function ClearBrowser {
 	#*******************************************************
 	""
 	If ($list) {
-    	""
     	# Mozilla Firefox
     	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "----------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Mozilla ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 
     	# Google Chrome 
     	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
-    	Write-Host -ForegroundColor Green "------------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Chrome ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 
     	# Chromium
     	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "------------------------------------"
+    	Write-Host -ForegroundColor Green "---------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Chromium ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 	
 		# Yandex
     	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "------------------------------------"
+    	Write-Host -ForegroundColor Green "---------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Yandex ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 	
 		# Opera
     	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "------------------------------------"
+    	Write-Host -ForegroundColor Green "------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Opera ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 
     	# Internet Explorer
     	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "------------------------------------"
+    	Write-Host -ForegroundColor Green "------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_IE ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 		
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей
 		
@@ -372,14 +381,10 @@ Function ClearRecycleBinTemp {
 	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
 
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке Корзины и удалению временных файлов..."
-	Write-Host -ForegroundColor DarkGreen "---------------------"
+	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
 	""
-	Write-Host -ForegroundColor Green "Создание списка пользователей"
-	Write-Host -ForegroundColor Green "---------------------------------------"
 
-	Write-Host -ForegroundColor Magenta "Сохранение списка пользователей в c:\users\%username%\users.csv"
 	$Path = "C:\users\$env:USERNAME\users.csv"
-
 	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
 	$list = Test-Path $Path
 	""
@@ -389,16 +394,18 @@ Function ClearRecycleBinTemp {
 	If ($list) {
 		# RecileBin & Temp
     	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "---------------------------------------"
+    	Write-Host -ForegroundColor Green "-------------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_RecileBin_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей
     	Write-Host -ForegroundColor Magenta "Очистка завершена!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
     } Else {
-		Write-Host -ForegroundColor Yellow "Ошибка!"
+		Write-Host -ForegroundColor Red "Ошибка!"
 		Exit
     }
 }
@@ -414,93 +421,100 @@ Function ClearFull {
 	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
 	
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов..."
-	Write-Host -ForegroundColor DarkGreen "---------------------"
+	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________________________"
 	""
-	Write-Host -ForegroundColor Green "Создание списка пользователей"
-	Write-Host -ForegroundColor Green "---------------------------------------"
-
-	Write-Host -ForegroundColor Magenta "Сохранение списка пользователей в c:\users\%username%\users.csv"
-	
 	$Path = "C:\users\$env:USERNAME\users.csv"
 	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
 	$list = Test-Path $Path
-	""
-	#*******************************************************
 	""
 	If ($list) {
     	""
     	# Mozilla Firefox
     	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "----------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Mozilla ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 
     	# Google Chrome 
     	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "--------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Chrome ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 
     	# Chromium
     	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "---------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Chromium ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
-
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
+	
 		# Yandex
     	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "---------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Yandex ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
-
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
+	
 		# Opera
     	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_Opera ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
 
     	# Internet Explorer
     	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+    	Write-Host -ForegroundColor Green "------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_IE ($Path)
     	Write-Host -ForegroundColor Magenta "Кэш очищен!"
     	""
-
+        Write-Host -ForegroundColor Magenta "#####"
+        ""
+		
 		# RecileBin & Temp
-    	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "--------------------------------------"
+        Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
+    	Write-Host -ForegroundColor Green "-------------------------------------------"
     	""
     	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
-    	Write-Host -ForegroundColor Cyan
+        ""
     	Clear_RecileBin_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей
     	Write-Host -ForegroundColor Magenta "Очистка завершена!"
-    	""		
+    	""
+        Write-Host -ForegroundColor Magenta "#####"
+        ""	
 	} Else {
-		Write-Host -ForegroundColor Yellow "Ошибка!"
+		Write-Host -ForegroundColor Red "Ошибка!"
 		Exit
     }
 }
