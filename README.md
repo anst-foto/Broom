@@ -14,7 +14,7 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 *  **Очистка кэша и Корзины, удаление временных файлов (PowerShell)**
 *  **&copy; Starinin Andrey (AnSt), 2017**
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
-*  **Версия: 0.19 (Октябрь 2017)**
+*  **Версия: 0.20 (Октябрь 2017)**
 *  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
 
 * **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
