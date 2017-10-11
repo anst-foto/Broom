@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.19
+.VERSION 0.20
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -13,6 +13,7 @@
 .PROJECTURI https://github.com/anst-foto/Broom
 
 .RELEASENOTES
+v0.20:	Отказ от alias cmdlet
 v0.19:	Изменение выводимой информации
 v0.18:	Добавлено логирование сообщений в файл
 v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
@@ -47,7 +48,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.19 (Октябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.20 (Октябрь 2017)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -89,6 +90,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.20:	Отказ от alias cmdlet
 v0.19:	Изменение выводимой информации
 v0.18:	Добавлено логирование сообщений в файл
 v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
@@ -142,14 +144,13 @@ Out-File -FilePath $PathLog -InputObject $Head1Log -Append -Encoding Unicode
 #########################
 
 # Mozilla Firefox
-
 Function Clear_Mozilla ($a) {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $TitleMozilla -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	
-    Import-CSV -Path $a -Header Name | Foreach {
+    Import-CSV -Path $a -Header Name | ForEach-Object {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
@@ -161,14 +162,13 @@ Function Clear_Mozilla ($a) {
 ###
 
 # Google Chrome
-
 Function Clear_Chrome ($a) {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $TitleChrome -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	
-    Import-CSV -Path $a -Header Name | Foreach {
+    Import-CSV -Path $a -Header Name | ForEach-Object {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
@@ -180,14 +180,13 @@ Function Clear_Chrome ($a) {
 ###
 
 # Chromium
-
 Function Clear_Chromium ($a) {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $TitleChromium -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 
-    Import-CSV -Path $a -Header Name | Foreach {
+    Import-CSV -Path $a -Header Name | ForEach-Object {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
@@ -204,7 +203,7 @@ Function Clear_Yandex ($a) {
 	Out-File -FilePath $PathLog -InputObject $TitleYandex -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 
-	Import-CSV -Path $a -Header Name | Foreach {
+	Import-CSV -Path $a -Header Name | ForEach-Object {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
@@ -222,21 +221,20 @@ Function Clear_Opera ($a) {
 	Out-File -FilePath $PathLog -InputObject $TitleOpera -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	
-	Import-CSV -Path $a -Header Name | Foreach {
+	Import-CSV -Path $a -Header Name | ForEach-Object {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Opera Software\Opera Stable\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             }
 }
 ###
 
 # Internet Explorer
-
 Function Clear_IE ($a) {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $TitleIE -Append -Encoding Unicode
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	
-    Import-CSV -Path $a | Foreach {
+    Import-CSV -Path $a | ForEach-Object {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\INetCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
@@ -246,7 +244,6 @@ Function Clear_IE ($a) {
 ###
 
 # Clear RecileBin & Temp
-
 Function Clear_RecileBin_Temp ($a) {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
@@ -254,24 +251,24 @@ Function Clear_RecileBin_Temp ($a) {
 	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
 	
 	#Очистка Корзины на всех дисках
-    $Drives = Get-PSDrive -PSProvider FileSystem
-    Foreach ($Drive in $Drives) {
-            $Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
-            Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-    }
+	$Drives = Get-PSDrive -PSProvider FileSystem
+	ForEach-Object ($Drive in $Drives)
+	{
+		$Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
+		Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+	}
 	
 	#Удаление temp-файлов
-    Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-    Import-Csv -Path $a | Foreach {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-    }
+	Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+	Import-Csv -Path $a | ForEach-Object {
+		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+	}
 }
 
 #########################
 
 # ClearBrowser
-
 Function ClearBrowser {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
@@ -284,12 +281,12 @@ Function ClearBrowser {
 	
 	$Path = "C:\users\$env:USERNAME\users.csv"
 
-	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
-	$list = Test-Path $Path
+	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
+	$List = Test-Path $Path
 	""
 	#*******************************************************
 	""
-	If ($list) {
+	If ($List) {
     	# Mozilla Firefox
     	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
     	Write-Host -ForegroundColor Green "----------------------------"
@@ -373,7 +370,6 @@ Function ClearBrowser {
 ###
 
 # ClearRecileBinTemp
-
 Function ClearRecycleBinTemp {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
@@ -385,13 +381,13 @@ Function ClearRecycleBinTemp {
 	""
 
 	$Path = "C:\users\$env:USERNAME\users.csv"
-	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
-	$list = Test-Path $Path
+	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
+	$List = Test-Path $Path
 	""
 	#*******************************************************
 	""
 	
-	If ($list) {
+	If ($List) {
 		# RecileBin & Temp
     	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
     	Write-Host -ForegroundColor Green "-------------------------------------------"
@@ -413,7 +409,6 @@ Function ClearRecycleBinTemp {
 ###
 
 # ClearFull
-
 Function ClearFull {
 	#Добавление информации в log-файл
 	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
@@ -424,10 +419,10 @@ Function ClearFull {
 	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________________________"
 	""
 	$Path = "C:\users\$env:USERNAME\users.csv"
-	Dir C:\Users | Select Name | Export-Csv -Path $Path -NoTypeInformation
-	$list = Test-Path $Path
+	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
+	$List = Test-Path $Path
 	""
-	If ($list) {
+	If ($List) {
     	""
     	# Mozilla Firefox
     	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
@@ -519,6 +514,8 @@ Function ClearFull {
     }
 }
 
+#*******************************************************
+
 #########################
 
 Write-Host -ForegroundColor Red "Закройте все браузеры!"
@@ -537,11 +534,12 @@ $Choice = Read-Host "Для продолжения введите номер р�
 
 #########################
 
-Switch ($Choice) {
-    1{ClearBrowser}
-    2{ClearRecycleBinTemp}
-	3{ClearFull}
-    4{
+Switch ($Choice)
+{
+	1{ ClearBrowser }
+	2{ ClearRecycleBinTemp }
+	3{ ClearFull }
+	4{
 		#Добавление информации в log-файл
 		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
 		Out-File -FilePath $PathLog -InputObject $Title4 -Append -Encoding Unicode
@@ -550,7 +548,7 @@ Switch ($Choice) {
 		Write-Host -ForegroundColor Red "Выход..."
 		Exit
 	}
-    Default {Write-Host -ForegroundColor Red "Не правильно выбран режим"}
+	Default { Write-Host -ForegroundColor Red "Не правильно выбран режим" }
 }
 
 #########################
@@ -565,3 +563,5 @@ Write-Host -ForegroundColor Red "***********************************************
 ""
 
 Read-Host "Для выхода нажмите Enter"
+
+#*******************************************************
