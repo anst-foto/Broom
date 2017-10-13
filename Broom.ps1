@@ -13,6 +13,7 @@
 .PROJECTURI https://github.com/anst-foto/Broom
 
 .RELEASENOTES
+
 v0.20:	Отказ от alias cmdlet
 v0.19:	Изменение выводимой информации
 v0.18:	Добавлено логирование сообщений в файл
@@ -33,6 +34,7 @@ v0.4:	Очистка Корзины на старых системах
 v0.3:	Ожидание нажатия пользователя
 v0.2:	Очистка временных файлов пользователя
 v0.1:	Создание скрипта
+
 #>
 
 <#
@@ -252,7 +254,7 @@ Function Clear_RecileBin_Temp ($a) {
 	
 	#Очистка Корзины на всех дисках
 	$Drives = Get-PSDrive -PSProvider FileSystem
-	ForEach-Object ($Drive in $Drives)
+	ForEach ($Drive in $Drives)
 	{
 		$Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
 		Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
