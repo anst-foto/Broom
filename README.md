@@ -14,7 +14,7 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 *  **Очистка кэша и Корзины, удаление временных файлов (PowerShell)**
 *  **&copy; Starinin Andrey (AnSt), 2017**
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
-*  **Версия: 0.20 (Октябрь 2017)**
+*  **Версия: 0.21 (Октябрь 2017)**
 *  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
 
 * **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
@@ -54,3 +54,6 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 ## Версии:
 * PowerShell-скрипт (разработка в **PowerGUI Script Editor v3.8.0.129**)
 * Скомпилированный EXE-файл (компиляцция в **PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes**). Компиляция EXE-файла *PS2EXE-GUI* уменьшило запуск программы в несколько раз, по сравнению с запуском EXE-файла скомпилированного *PowerGUI Script Editor v3.8.0.129*
+
+***
+Добавлен PS2EXE-GUI для компиляции в EXE-файл
