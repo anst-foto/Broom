@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.21
+.VERSION 0.22
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -8,13 +8,16 @@
 
 .COPYRIGHT © Starinin Andrey (AnSt), 2017
 
+.LICENSE MIT License
+
 .LICENSEURI https://github.com/anst-foto/Broom/blob/master/LICENSE
 
 .PROJECTURI https://github.com/anst-foto/Broom
 
 .RELEASENOTES
 
-v0.21:	Перенос функций во внешний модуль (Broom-Module.psm1)
+v0.22:	Изменение выводимой информации
+v0.21:	Перенос функций во внешний модуль (Broom_Module.psm1)
 v0.20:	Отказ от alias cmdlet
 v0.19:	Изменение выводимой информации
 v0.18:	Добавлено логирование сообщений в файл
@@ -51,7 +54,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.21 (Октябрь 2017)"
+Write-Host -ForegroundColor Yellow "Версия: 0.22 (Октябрь 2017)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -93,6 +96,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.22:	Изменение выводимой информации
 v0.21:	Перенос функций во внешний модуль (Broom_Module.psm1)
 v0.20:	Отказ от alias cmdlet
 v0.19:	Изменение выводимой информации

@@ -1,24 +1,20 @@
-﻿<#PSScriptInfo
-
-.VERSION 0.1
-
-.GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
-
-.AUTHOR An.St.
-
-.COPYRIGHT © Starinin Andrey (AnSt), 2017
-
-.LICENSEURI https://github.com/anst-foto/Broom/blob/master/LICENSE
-
-.PROJECTURI https://github.com/anst-foto/Broom
-
-#>
-
-<#
-.DESCRIPTION 
- Функции по очистке кэша и Корзины, удалению временных файлов
-#> 
-
+﻿
+#*******************************************************
+#
+#						Broom (Метла)
+#				Очистка кэша и Корзины, удаление временных файлов
+#				(c) Starinin Andrey (AnSt). 2017
+#				MIT License
+#				Версия: 0.22 (Октябрь 2017)
+#
+#				GitHub - https://github.com/anst-foto/Broom
+#				Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb
+#				PowerShellGallery - https://www.powershellgallery.com/packages/Broom
+#
+#						***
+#				Основано на коде - https://github.com/lemtek/Powershell
+#				By Lee Bhogal, Paradise Computing Ltd - June 2014
+#
 #*******************************************************
 
 $PathLog = "C:\users\$env:USERNAME\broom.log"
@@ -183,75 +179,39 @@ Function ClearBrowser {
     	# Mozilla Firefox
     	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
     	Write-Host -ForegroundColor Green "----------------------------"
-    	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
-    	Clear_Mozilla ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
+    	""    	
+    	Clear_Mozilla ($Path)        
 
     	# Google Chrome 
     	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
     	Write-Host -ForegroundColor Green "--------------------------"
-    	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
+    	""    	
     	Clear_Chrome ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-
+    	
     	# Chromium
     	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
     	Write-Host -ForegroundColor Green "---------------------"
-    	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
+    	""    	
     	Clear_Chromium ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-	
+    	
 		# Yandex
     	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
     	Write-Host -ForegroundColor Green "---------------------------"
-    	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
+    	""    	
     	Clear_Yandex ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-	
+    	
 		# Opera
     	Write-Host -ForegroundColor Green "Очистка кэша Opera"
     	Write-Host -ForegroundColor Green "------------------"
-    	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
+    	""    	
     	Clear_Opera ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-
+    	
     	# Internet Explorer
     	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
     	Write-Host -ForegroundColor Green "------------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_IE ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-		
+    	
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей
 		
 	} Else {
@@ -283,14 +243,8 @@ Function ClearRecycleBinTemp {
     	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
     	Write-Host -ForegroundColor Green "-------------------------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
-        ""
     	Clear_RecileBin_Temp ($Path)
-		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей
-    	Write-Host -ForegroundColor Magenta "Очистка завершена!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
+		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей    	
     } Else {
 		Write-Host -ForegroundColor Red "Ошибка!"
 		Exit
@@ -317,86 +271,44 @@ Function ClearFull {
     	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
     	Write-Host -ForegroundColor Green "----------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_Mozilla ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-
+    	
     	# Google Chrome 
     	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
     	Write-Host -ForegroundColor Green "--------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_Chrome ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-
+    	
     	# Chromium
     	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
     	Write-Host -ForegroundColor Green "---------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_Chromium ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-	
+    	
 		# Yandex
     	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
     	Write-Host -ForegroundColor Green "---------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_Yandex ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-	
+    	
 		# Opera
     	Write-Host -ForegroundColor Green "Очистка кэша Opera"
     	Write-Host -ForegroundColor Green "------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_Opera ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-
+    	
     	# Internet Explorer
     	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
     	Write-Host -ForegroundColor Green "------------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Кэш очищается..."
-        ""
     	Clear_IE ($Path)
-    	Write-Host -ForegroundColor Magenta "Кэш очищен!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""
-		
+    	
 		# RecileBin & Temp
         Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
     	Write-Host -ForegroundColor Green "-------------------------------------------"
     	""
-    	Write-Host -ForegroundColor Magenta "Очистка RecycleBin & Temp..."
-        ""
     	Clear_RecileBin_Temp ($Path)
-		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей
-    	Write-Host -ForegroundColor Magenta "Очистка завершена!"
-    	""
-        Write-Host -ForegroundColor Magenta "#####"
-        ""	
+		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode # удаление файла со списком пользователей    	
 	} Else {
 		Write-Host -ForegroundColor Red "Ошибка!"
 		Exit
