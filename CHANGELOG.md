@@ -5,7 +5,7 @@
 *  **Очистка кэша и Корзины, удаление временных файлов (PowerShell)**
 *  **&copy; Starinin Andrey (AnSt), 2017**
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
-*  **Версия: 0.22 (Октябрь 2017)**
+*  **Версия: 0.23 (Октябрь 2017)**
 *  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
 
 * **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
@@ -15,6 +15,7 @@
 [README.md](https://github.com/anst-foto/Broom/blob/master/README.md)
 
 # Изменения:
+* v0.23(Октябрь 2017):	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)*
 * v0.22(Октябрь 2017):	Изменение выводимой информации
 * v0.21(Октябрь 2017):	Перенос функций во внешний модуль (Broom_Module.psm1)
 * v0.20(Октябрь 2017):	Отказ от alias cmdlet
@@ -28,8 +29,8 @@
 * v0.12(Сентябрь 2017):	Добавление информации о лицензии (MIT License)
 * v0.11(Сентябрь 2017):	Очистка Корзины на старых системах
 * v0.10(Сентябрь 2017):	Добавление меню режимов очистки
-* v0.9(июль 2017):		Добавление удаления файла со списком пользователей
-* v0.8(июль 2017):		Переделана функция по очистке Корзины
+* v0.9(Июль 2017):		Добавление удаления файла со списком пользователей
+* v0.8(Июль 2017):		Переделана функция по очистке Корзины
 * v0.7(Июнь 2017):		Добавлена очистка Яндекс.Браузер, Opera
 * v0.6:					Предупреждение о закрытие браузеров
 * v0.5:					Использование функций
