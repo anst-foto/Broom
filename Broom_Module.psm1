@@ -1,11 +1,11 @@
 ﻿
 #*******************************************************
 #
-#						Broom (Метла)
+#						Broom_Module
 #				Очистка кэша и Корзины, удаление временных файлов
 #				(c) Starinin Andrey (AnSt). 2017
 #				MIT License
-#				Версия: 0.22 (Октябрь 2017)
+#				Версия: 0.1 (Октябрь 2017)
 #
 #				GitHub - https://github.com/anst-foto/Broom
 #				Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb
@@ -14,6 +14,30 @@
 #						***
 #				Основано на коде - https://github.com/lemtek/Powershell
 #				By Lee Bhogal, Paradise Computing Ltd - June 2014
+#
+#*******************************************************
+#
+#			MIT License
+#
+#	Copyright (c) 2017 Starinin Andrey
+#
+#	Permission is hereby granted, free of charge, to any person obtaining a copy
+#	of this software and associated documentation files (the `'Software`'), to deal
+#	in the Software without restriction, including without limitation the rights
+#	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+#	copies of the Software, and to permit persons to whom the Software is
+#	furnished to do so, subject to the following conditions:
+#
+#	The above copyright notice and this permission notice shall be included in all
+#	copies or substantial portions of the Software.
+#
+#	THE SOFTWARE IS PROVIDED `'AS IS`', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+#	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+#	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+#	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+#	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+#	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+#	SOFTWARE.
 #
 #*******************************************************
 
