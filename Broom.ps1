@@ -66,6 +66,16 @@ Write-Host -ForegroundColor Gray "Основано на коде - https://githu
 Write-Host -ForegroundColor Gray "By Lee Bhogal, Paradise Computing Ltd - June 2014"
 Write-Host -ForegroundColor Gray "***"
 ""
+Write-Host -ForegroundColor Gray "***"
+Write-Host -ForegroundColor Gray "PS2EXE-GUI - https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5"
+Write-Host -ForegroundColor Gray "License: MS-LPL"
+Write-Host -ForegroundColor Gray ""
+Write-Host -ForegroundColor Gray "PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
+
+Overworking of the great script of Igor Karstein with GUI support by Markus Scholtes. 
+The GUI output and input is activated with one switch, real windows executables are generated."
+Write-Host -ForegroundColor Gray "***"
+""
 Write-Host -ForegroundColor Yellow "*******************************************************"
 ""
 

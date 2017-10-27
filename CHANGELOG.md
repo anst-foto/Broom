@@ -7,9 +7,8 @@
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
 *  **Версия: 0.23 (Октябрь 2017)**
 *  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
-
-* **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
-
+*  **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
+*  **Добавлен [PS2EXE-GUI](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) для компиляции в EXE-файл** | **PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
 ***
 
 [README.md](https://github.com/anst-foto/Broom/blob/master/README.md)

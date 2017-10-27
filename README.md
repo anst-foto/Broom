@@ -16,8 +16,8 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
 *  **Версия: 0.23 (Октябрь 2017)**
 *  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
-
-* **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
+*  **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
+*  **Добавлен [PS2EXE-GUI](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) для компиляции в EXE-файл** | **PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
 
 ***
 
@@ -56,8 +56,17 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 * Скомпилированный EXE-файл (компиляцция в **PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes**). Компиляция EXE-файла *PS2EXE-GUI* уменьшило запуск программы в несколько раз, по сравнению с запуском EXE-файла скомпилированного *PowerGUI Script Editor v3.8.0.129*
 
 ***
-Добавлен **PS2EXE-GUI** для компиляции в EXE-файл
+### PS2EXE-GUI
+Добавлен **[PS2EXE-GUI](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5)** для компиляции в EXE-файл
+
+License: MS-LPL
+PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
+
+Overworking of the great script of Igor Karstein with GUI support by Markus Scholtes. 
+The GUI output and input is activated with one switch, real windows executables are generated.
 
 Добавлен **ConvertPS2EXE.ps1** для автоматической компиляции в EXE-файл
 
+***
+### Broom_Module.psm1
 Создан отдельный модуль - **Broom_Module.psm1** с функциями по очистке
