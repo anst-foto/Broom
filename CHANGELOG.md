@@ -5,7 +5,7 @@
 *  **Очистка кэша и Корзины, удаление временных файлов (PowerShell)**
 *  **&copy; Starinin Andrey (AnSt), 2017**
 *  **[MIT License](https://github.com/anst-foto/Broom/blob/master/LICENSE)**
-*  **Версия: 0.23 (Октябрь 2017)**
+*  **Версия: 0.24 (Февраль 2018)**
 *  **[GitHub](https://github.com/anst-foto/Broom) | [Gallery TechNet](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) | [PowerShell Gallery](https://www.powershellgallery.com/packages/Broom)**
 *  **Основано на коде - [Lee Bhogal](https://github.com/lemtek/Powershell)** | **By Lee Bhogal, Paradise Computing Ltd - June 2014**
 *  **Добавлен [PS2EXE-GUI](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) для компиляции в EXE-файл** | **PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
@@ -14,7 +14,8 @@
 [README.md](https://github.com/anst-foto/Broom/blob/master/README.md)
 
 # Изменения:
-* v0.23(Октябрь 2017):	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)*
+* v0.24(Февраль 2018):	Добавление выбора способа вывода информации: на экран или в файл
+* v0.23(Октябрь 2017):	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)
 * v0.22(Октябрь 2017):	Изменение выводимой информации
 * v0.21(Октябрь 2017):	Перенос функций во внешний модуль (Broom_Module.psm1)
 * v0.20(Октябрь 2017):	Отказ от alias cmdlet
