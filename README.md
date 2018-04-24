@@ -2,8 +2,8 @@
 ![Language: PowerShell](https://img.shields.io/badge/language-PowerShell-blue.svg)
 
 [![GitHub: Broom](https://img.shields.io/badge/GitHub-Broom-orange.svg)](https://github.com/anst-foto/Broom)  
-[![Gallery TechNet: Broom](https://img.shields.io/badge/Gallery TechNet-Broom-orange.svg)](https://gallery.technet.microsoft.com/PowerShell-f24f32cb)  
-[![PowerShell Gallery: Broom](https://img.shields.io/badge/PowerShell Gallery-Broom-orange.svg)](https://www.powershellgallery.com/packages/Broom)
+[![Gallery TechNet: Broom](https://img.shields.io/badge/Gallery%20TechNet-Broom-orange.svg)](https://gallery.technet.microsoft.com/PowerShell-f24f32cb)  
+[![PowerShell Gallery: Broom](https://img.shields.io/badge/PowerShell%20Gallery-Broom-orange.svg)](https://www.powershellgallery.com/packages/Broom)
 
 # Broom \(Метла\)
 
