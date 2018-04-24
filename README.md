@@ -48,6 +48,7 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 Установка не требуется  
 1. Скачавайте с репозитория GitHub zip-архив - [https://github.com/anst-foto/Broom/archive/master.zip](https://github.com/anst-foto/Broom/archive/master.zip) _Доступен EXE-файл и PS-скрипт_  
 2. Сохраняете скрипт из PowerShell Gallery - `Save-Script -Name Broom -Path <path>`. _Доступен только PS-скрипт_
+3. Выбирайте релиз и скачивайте - [https://github.com/anst-foto/Broom/releases](https://github.com/anst-foto/Broom/releases) _Доступен EXE-файл и PS-скрипт_
 
 ## Меню:
 
