@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.24
+.VERSION 0.25
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -16,6 +16,7 @@
 
 .RELEASENOTES
 
+v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
 v0.24:	Добавление выбора способа вывода информации: на экран или в файл
 v0.23:	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)
 v0.22:	Изменение выводимой информации
@@ -56,7 +57,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.24 (Февраль 2018)"
+Write-Host -ForegroundColor Yellow "Версия: 0.25 (Сентябрь 2018)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -108,6 +109,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
 v0.24:	Добавление выбора способа вывода информации: на экран или в файл
 v0.23:	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)
 v0.22:	Изменение выводимой информации
@@ -160,20 +162,37 @@ Function OutFile {
 	$TitleRecileBinTemp = "RecileBin & Temp"
 
 	""
-	New-Item -Path $PathLog -ItemType File -ErrorAction SilentlyContinue -Verbose
-	Out-File -FilePath $PathLog -InputObject $Head1Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $DateLog -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head1Log -Append -Encoding Unicode
+    Try {
+	    New-Item -Path $PathLog -ItemType File -ErrorAction SilentlyContinue -Verbose
+        }
+    Catch {
+        Write-Host -ForegroundColor Red "ОШИБКА создания/открытия log-файла"
+        }
+    Try {
+	    Out-File -FilePath $PathLog -InputObject $Head1Log -Append -Encoding Unicode
+	    Out-File -FilePath $PathLog -InputObject $DateLog -Append -Encoding Unicode
+	    Out-File -FilePath $PathLog -InputObject $Head1Log -Append -Encoding Unicode
+        }
+    Catch {
+        Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+        }
 }
 
 # Mozilla Firefox
 Function Clear_Mozilla_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleMozilla -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+    Try {
+        Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	    Out-File -FilePath $PathLog -InputObject $TitleMozilla -Append -Encoding Unicode
+	    Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+        } 
+    Catch {
+        Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+        }
+	
 	
     Import-CSV -Path $a -Header Name | ForEach-Object {
+        Try{
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
@@ -181,9 +200,14 @@ Function Clear_Mozilla_OutFile ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\webappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             }
+        Catch {
+            Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Firefox"
+            }
+         }
 }
 Function Clear_Mozilla ($a) {	
     Import-CSV -Path $a -Header Name | ForEach-Object {
+        Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
@@ -191,26 +215,44 @@ Function Clear_Mozilla ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\webappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
+        Catch {
+            Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Firefox"
+            }
+            
+        }
 }
 
 # Google Chrome
 Function Clear_Chrome_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleChrome -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $TitleChrome -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		}
+	Catch {
+        Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+        }
+	
 	
     Import-CSV -Path $a -Header Name | ForEach-Object {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+		Try {
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-            }
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chrome"
+			}
+            
+        }
 }
 Function Clear_Chrome ($a) {	
     Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
@@ -218,145 +260,263 @@ Function Clear_Chrome ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chrome"
+			}
+		}
 }
 
 # Chromium
 Function Clear_Chromium_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleChromium -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $TitleChromium -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
+	
 
     Import-CSV -Path $a -Header Name | ForEach-Object {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+		Try {
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-            }
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chromium"
+			}
+            
+        }
 }
 Function Clear_Chromium ($a) {
 	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chromium"
+			}
+		}
 }
 
 # Yandex
 Function Clear_Yandex_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleYandex -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $TitleYandex -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
+	
 
 	Import-CSV -Path $a -Header Name | ForEach-Object {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+		Try {
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-            }
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Yandex"
+			}
+            
+        }
 }
 Function Clear_Yandex ($a) {	
 	Import-CSV -Path $a -Header Name | ForEach-Object {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Try{
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            }
+			}
+        Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Yandex"
+			}
+        }
 }
 
 # Opera
 Function Clear_Opera_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleOpera -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $TitleOpera -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
 	
 	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Opera Software\Opera Stable\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             }
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Opera"
+			}
+		}
 }
 Function Clear_Opera ($a) {	
 	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Opera Software\Opera Stable\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Opera"
+			}
+		}
 }
 
 # Internet Explorer
 Function Clear_IE_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleIE -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $TitleIE -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		}	
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
 	
     Import-CSV -Path $a | ForEach-Object {
+		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\INetCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WebCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
             }
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша IE"
+			}
+		}
 }
 Function Clear_IE ($a) {	
     Import-CSV -Path $a | ForEach-Object {
+		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\INetCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WebCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша IE"
+			}
+		}
 }
 
 # Clear RecileBin & Temp
 Function Clear_RecileBin_Temp_OutFile ($a) {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $TitleRecileBinTemp -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $TitleRecileBinTemp -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head3Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
 	
 	#Очистка Корзины на всех дисках
-	$Drives = Get-PSDrive -PSProvider FileSystem
+	Try {
+		$Drives = Get-PSDrive -PSProvider FileSystem
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА подключения к дискам"
+		}
 	ForEach ($Drive in $Drives)
 	{
-		$Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
-		Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+		Try {
+			$Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
+			Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления Recycle.Bin"
+			}
 	}
 	
 	#Удаление temp-файлов
-	Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+	Try {
+		Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА удаления Temp1"
+		}
 	Import-Csv -Path $a | ForEach-Object {
-		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
-	}
+		Try {
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 4>&1 | Out-File $PathLog -Append -Encoding Unicode
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления Temp2"
+			}
+		}
 }
 Function Clear_RecileBin_Temp ($a) {	
 	#Очистка Корзины на всех дисках
-	$Drives = Get-PSDrive -PSProvider FileSystem
+	Try {
+		$Drives = Get-PSDrive -PSProvider FileSystem
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА подключения к дискам"
+		}
 	ForEach ($Drive in $Drives)
 	{
-		$Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
-		Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Try {
+			$Path_RecicleBin = "$Drive" + ':\$Recycle.Bin'
+			Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления Recycle.Bin"
+			}
 	}
 	
 	#Удаление temp-файлов
-	Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Try {
+		Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА удаления Temp1"
+		}
 	Import-Csv -Path $a | ForEach-Object {
-		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Try {
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+			}
+		Catch {
+			Write-Host -ForegroundColor Red "ОШИБКА удаления Temp2"
+			}
 	}
 }
 
 # ClearBrowser
 Function ClearBrowser_OutFile {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Title1 -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Title1 -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
 
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров"
 	Write-Host -ForegroundColor DarkGreen "____________________________________________"
@@ -473,9 +633,14 @@ Function ClearBrowser {
 # ClearRecileBinTemp
 Function ClearRecycleBinTemp_OutFile {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Title2 -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Title2 -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
 
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке Корзины и удалению временных файлов..."
 	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
@@ -528,9 +693,14 @@ Function ClearRecycleBinTemp {
 # ClearFull
 Function ClearFull_OutFile {
 	#Добавление информации в log-файл
-	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Title3 -Append -Encoding Unicode
-	Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+	Try {
+		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Title3 -Append -Encoding Unicode
+		Out-File -FilePath $PathLog -InputObject $Head2Log -Append -Encoding Unicode
+		}
+	Catch {
+		Write-Host -ForegroundColor Red "ОШИБКА записи в log-файл"
+		}
 	
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов..."
 	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________________________"
