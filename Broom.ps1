@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.25.1
+.VERSION 0.26.1
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -16,6 +16,7 @@
 
 .RELEASENOTES
 
+v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
 v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
 v0.24:	Добавление выбора способа вывода информации: на экран или в файл
@@ -58,7 +59,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.25.1 (Сентябрь 2018)"
+Write-Host -ForegroundColor Yellow "Версия: 0.26.1 (Сентябрь 2018)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -110,6 +111,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
 v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
 v0.24:	Добавление выбора способа вывода информации: на экран или в файл
@@ -149,7 +151,7 @@ Write-Host -ForegroundColor Yellow "********************************************
 Function Clear_Mozilla ($a) {	
     Import-CSV -Path $a -Header Name | ForEach-Object {
         Try {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\OfflineCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cookies.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
@@ -169,9 +171,9 @@ Function Clear_Chrome ($a) {
 		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
@@ -186,9 +188,11 @@ Function Clear_Chromium ($a) {
 		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
 			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chromium"
@@ -206,6 +210,8 @@ Function Clear_Yandex ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			}
         Catch {
 			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Yandex"
