@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.26.1
+.VERSION 0.27.1
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -16,6 +16,7 @@
 
 .RELEASENOTES
 
+v0.27.1:	Добавление очистки папки "Загрузки"
 v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
 v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
@@ -59,7 +60,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.26.1 (Сентябрь 2018)"
+Write-Host -ForegroundColor Yellow "Версия: 0.27.1 (Ноябрь 2018)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -111,6 +112,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.27.1:	Добавление очистки папки Загрузки
 v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
 v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
@@ -173,7 +175,7 @@ Function Clear_Chrome ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
@@ -284,6 +286,20 @@ Function Clear_RecileBin_Temp ($a) {
 	}
 }
 
+# Downloads
+Function Clear_Download ($a) {
+	Import-CSV -Path $a | ForEach-Object {
+    	Try {
+        	Remove-Item -Path "C:\Users\$($_.Name)\Downloads\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+    	}
+    	Catch {
+        	Write-Host -ForegroundColor Red "ОШИБКА удаления файлов из папки Загрузка"
+    	}
+	}
+}
+
+####
+
 # ClearBrowser
 Function ClearBrowser {	
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров"
@@ -368,9 +384,35 @@ Function ClearRecycleBinTemp {
     }
 }
 
+# ClearDownloads
+Function ClearDownloads () {
+    Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке папки Загрузки (Downloads)..."
+	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
+	""
+    
+    $Path = "C:\users\$env:USERNAME\users.csv"
+	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
+	$List = Test-Path $Path
+	""
+	#*******************************************************
+	""
+	
+	If ($List) {
+		# Downloads
+    	Write-Host -ForegroundColor Green "Очистка папки Загрузки (Downloads)"
+    	Write-Host -ForegroundColor Green "-------------------------------------------"
+    	""
+    	Clear_Download ($Path)
+		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
+    } Else {
+		Write-Host -ForegroundColor Red "Ошибка!"
+		Exit
+    }
+}
+
 # ClearFull
 Function ClearFull {	
-	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов..."
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов  и папки Загрузки..."
 	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________________________"
 	""
 	$Path = "C:\users\$env:USERNAME\users.csv"
@@ -420,6 +462,13 @@ Function ClearFull {
     	Write-Host -ForegroundColor Green "-------------------------------------------"
     	""
     	Clear_RecileBin_Temp ($Path)
+        
+        # Downloads
+    	Write-Host -ForegroundColor Green "Очистка папки Загрузки (Downloads)"
+    	Write-Host -ForegroundColor Green "-------------------------------------------"
+    	""
+    	Clear_Download ($Path)
+
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
 	} Else {
 		Write-Host -ForegroundColor Red "Ошибка!"
@@ -433,8 +482,9 @@ Function Choise_Screen {
 	Write-Host -ForegroundColor Yellow "Выберите режим очистки:"
 	Write-Host -ForegroundColor Yellow "1. Очистить только кэши браузеров"
 	Write-Host -ForegroundColor Yellow "2. Очитстить только Корзину и временные файлы (RecycleBin & Temp)"
-	Write-Host -ForegroundColor Yellow "3. Очитстить кэши браузеров и Корзину с временными файлами (RecycleBin & Temp)"
-	Write-Host -ForegroundColor Yellow "4. Выход"
+    Write-Host -ForegroundColor Yellow "3. Очитстить только папку Загрузки (Downloads)"
+	Write-Host -ForegroundColor Yellow "4. Очитстить кэши браузеров и Корзину с временными файлами (RecycleBin & Temp) и папкой Загрузки"
+	Write-Host -ForegroundColor Yellow "5. Выход"
 	""
 	Write-Host -ForegroundColor Gray "*******************************************************"
 	""
@@ -443,8 +493,9 @@ Function Choise_Screen {
 	{
 		1 { ClearBrowser }
 		2 { ClearRecycleBinTemp }
-		3 { ClearFull }
-		4 {		
+        3 { ClearDownloads }
+		4 { ClearFull }
+		5 {		
 			Write-Host -ForegroundColor Red "Выход..."
 			Exit
 		}
