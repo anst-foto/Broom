@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.27.1
+.VERSION 0.27.2
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -16,6 +16,7 @@
 
 .RELEASENOTES
 
+v0.27.2:	Удаление меню, для возможности автоматического запуска
 v0.27.1:	Добавление очистки папки "Загрузки"
 v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
@@ -60,7 +61,7 @@ Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.27.1 (Ноябрь 2018)"
+Write-Host -ForegroundColor Yellow "Версия: 0.27.2 (Декабрь 2018)"
 ""
 Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
@@ -112,6 +113,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.27.2:	Удаление меню, для возможности автоматического запуска
 v0.27.1:	Добавление очистки папки Загрузки
 v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
@@ -300,116 +302,6 @@ Function Clear_Download ($a) {
 
 ####
 
-# ClearBrowser
-Function ClearBrowser {	
-	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров"
-	Write-Host -ForegroundColor DarkGreen "____________________________________________"
-	""
-	
-	$Path = "C:\users\$env:USERNAME\users.csv"
-
-	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
-	$List = Test-Path $Path
-	""
-	#*******************************************************
-	""
-	If ($List) {
-    	# Mozilla Firefox
-    	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
-    	Write-Host -ForegroundColor Green "----------------------------"
-    	""    	
-    	Clear_Mozilla ($Path)
-
-    	# Google Chrome 
-    	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
-    	Write-Host -ForegroundColor Green "--------------------------"
-    	""    	
-    	Clear_Chrome ($Path)
-    	
-    	# Chromium
-    	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "---------------------"
-    	""    	
-    	Clear_Chromium ($Path)
-    	
-		# Yandex
-    	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "---------------------------"
-    	""    	
-    	Clear_Yandex ($Path)
-    	
-		# Opera
-    	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "------------------"
-    	""    	
-    	Clear_Opera ($Path)
-    	
-    	# Internet Explorer
-    	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "------------------------------"
-    	""
-    	Clear_IE ($Path)
-    	
-		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
-		
-	} Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
-		Exit
-    }
-}
-
-# ClearRecileBinTemp
-Function ClearRecycleBinTemp {
-	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке Корзины и удалению временных файлов..."
-	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
-	""
-
-	$Path = "C:\users\$env:USERNAME\users.csv"
-	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
-	$List = Test-Path $Path
-	""
-	#*******************************************************
-	""
-	
-	If ($List) {
-		# RecileBin & Temp
-    	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "-------------------------------------------"
-    	""
-    	Clear_RecileBin_Temp ($Path)
-		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
-    } Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
-		Exit
-    }
-}
-
-# ClearDownloads
-Function ClearDownloads () {
-    Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке папки Загрузки (Downloads)..."
-	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
-	""
-    
-    $Path = "C:\users\$env:USERNAME\users.csv"
-	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
-	$List = Test-Path $Path
-	""
-	#*******************************************************
-	""
-	
-	If ($List) {
-		# Downloads
-    	Write-Host -ForegroundColor Green "Очистка папки Загрузки (Downloads)"
-    	Write-Host -ForegroundColor Green "-------------------------------------------"
-    	""
-    	Clear_Download ($Path)
-		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
-    } Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
-		Exit
-    }
-}
-
 # ClearFull
 Function ClearFull {	
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов  и папки Загрузки..."
@@ -476,33 +368,6 @@ Function ClearFull {
     }
 }
 
-# Choise
-Function Choise_Screen {
-	""
-	Write-Host -ForegroundColor Yellow "Выберите режим очистки:"
-	Write-Host -ForegroundColor Yellow "1. Очистить только кэши браузеров"
-	Write-Host -ForegroundColor Yellow "2. Очитстить только Корзину и временные файлы (RecycleBin & Temp)"
-    Write-Host -ForegroundColor Yellow "3. Очитстить только папку Загрузки (Downloads)"
-	Write-Host -ForegroundColor Yellow "4. Очитстить кэши браузеров и Корзину с временными файлами (RecycleBin & Temp) и папкой Загрузки"
-	Write-Host -ForegroundColor Yellow "5. Выход"
-	""
-	Write-Host -ForegroundColor Gray "*******************************************************"
-	""
-	$Choice = Read-Host "Для продолжения введите номер режима очистки"
-	Switch ($Choice)
-	{
-		1 { ClearBrowser }
-		2 { ClearRecycleBinTemp }
-        3 { ClearDownloads }
-		4 { ClearFull }
-		5 {		
-			Write-Host -ForegroundColor Red "Выход..."
-			Exit
-		}
-		Default { Write-Host -ForegroundColor Red "Не правильно выбран режим" }
-	}
-}
-
 #########################
 
 ""
@@ -510,20 +375,8 @@ Write-Host -ForegroundColor Red "Закройте все браузеры!"
 ""
 Write-Host -ForegroundColor Gray "*******************************************************"
 ""
-Write-Host -ForegroundColor DarkYellow "Выберите способ вывода информации"
-Write-Host -ForegroundColor DarkYellow "1. Выводить информацию на экран"
-Write-Host -ForegroundColor DarkYellow "2. Выход"
-$Choise_Out = Read-Host "Для продолжения введите номер способа вывода информации"
 
-Switch ($Choise_Out)
-{
-	1 { Choise_Screen }
-	2 {
-		Write-Host -ForegroundColor Red "Выход..."
-		Exit
-	}
-	Default { Write-Host -ForegroundColor Red "Не правильно выбран режим" }
-}
+ClearFull
 
 #*******************************************************
 ""
