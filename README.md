@@ -14,10 +14,10 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 * **Очистка кэша и Корзины, удаление временных файлов \(PowerShell\)**
 * **© Starinin Andrey \(AnSt\), 2017**
 * [**MIT License**](/LICENSE)
-* **Версия: 0.27.1 \(Ноябрь 2018\)**
+* **Версия: 0.28.1 \(Декабрь 2018\)**
 * [**GitHub**](https://github.com/anst-foto/Broom) \| [**Gallery TechNet**](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) \| [**PowerShell Gallery**](https://www.powershellgallery.com/packages/Broom)
 * **Основано на коде -** [**Lee Bhogal**](https://github.com/lemtek/Powershell) \| **By Lee Bhogal, Paradise Computing Ltd - June 2014**
-* **Добавлен** [**PS2EXE-GUI**](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) **для компиляции в EXE-файл** \| **PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
+* **Добавлен** [**PS2EXE-GUI**](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) **для компиляции в EXE-файл** \| **PS2EXE-GUI v0.5.0.13 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
 
 ---
 
@@ -53,13 +53,11 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 
 ## Меню:
 
-1. Выводить информацию на экран
-   1. Очистить только кэши браузеров
-   2. Очитстить только Корзину и временные файлы \(RecycleBin & Temp\)
-   3. Очитстить только папку Загрузки \(Downloads\)
-   4. Очитстить кэши браузеров и Корзину с временными файлами \(RecycleBin & Temp\) и папкой Загрузки
-   5. Выход
-2. Выход
+1. Очистить только кэши браузеров
+2. Очитстить только Корзину и временные файлы \(RecycleBin & Temp\)
+3. Очитстить только папку Загрузки \(Downloads\)
+4. Очитстить кэши браузеров и Корзину с временными файлами \(RecycleBin & Temp\) и папкой Загрузки
+5. Выход
 
 ---
 
@@ -75,16 +73,9 @@ PowerShell-скрипт по очистке кэша браузеров и Ко�
 Добавлен [**PS2EXE-GUI**](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5) для компиляции в EXE-файл
 
 License: MS-LPL  
-PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
+PS2EXE-GUI vv0.5.0.13 by Ingo Karstein, reworked and GUI support by Markus Scholtes
 
-Overworking of the great script of Igor Karstein with GUI support by Markus Scholtes.   
+Overworking of the great script of Igor Karstein with GUI support by Markus Scholtes.
 The GUI output and input is activated with one switch, real windows executables are generated.
 
 Добавлен **ConvertPS2EXE.ps1** для автоматической компиляции в EXE-файл
-
----
-
-### Broom\_Module.psm1
-
-Создан отдельный модуль - **Broom\_Module.psm1** с функциями по очистке
-

@@ -9,38 +9,42 @@ compiles "source.ps1" into the executable target.exe
 
 Usage:
 
-ps2exe.ps1 [-inputFile] '<file_name>' [-outputFile] '<file_name>'
-           [-verbose] [-debug] [-runtime20|-runtime40] [-lcid <id>] [-x86|-x64] [-Sta|-Mta]
-           [-noConsole] [-iconFile '<file_name>']"
+		ps2exe.ps1 [-inputFile] '<file_name>' [-outputFile] '<file_name>' [-verbose]
+               [-debug] [-runtime20|-runtime40] [-lcid <id>] [-x86|-x64] [-Sta|-Mta] [-noConsole]
+               [-credentialGUI] [-iconFile '<file_name>'] [-title '<title>'] [-description '<description>']
+               [-company '<company>'] [-product '<product>'] [-copyright '<copyright>'] [-trademark '<trademark>']
+               [-version '<version>'] [-noConfigfile] [-requireAdmin] [-virtualize]
 
--inputFile 		Powershell script that you want to convert to executable
--outputFile 	destination executable file name
--verbose 			output verbose informations - if any
--debug 				generate debug informations for output file
--runtime20 		this switch forces PS2EXE to create a config file for the generated executable that contains the
-              "supported .NET Framework versions" setting for .NET Framework 2.0/3.x for PowerShell 2.0
--runtime40 		this switch forces PS2EXE to create a config file for the generated executable that contains the
-              "supported .NET Framework versions" setting for .NET Framework 4.x for PowerShell 3.0 or higher
--lcid 				location ID for the compiled executable. Current user culture if not specified
--x86 					compile for 32-bit runtime only
--x64 					compile for 64-bit runtime only
--sta 					Single Thread Apartment Mode
--mta 					Multi Thread Apartment Mode
--noConsole 		the resulting executable file will be a Windows Forms app without a console window
--iconFile 		icon file name for the compiled executable
--title 				title information (displayed in details tab of Windows Explorer's properties dialog)
--description 	description information (not displayed, but embedded in executablecutable)
--company 			company information (not displayed, but embedded in executablecutable)
--product 			product information (displayed in details tab of Windows Explorer's properties dialog)
--copyright 		copyright information (displayed in details tab of Windows Explorer's properties dialog)
--trademark 		trademark information (displayed in details tab of Windows Explorer's properties dialog)
--version 			version information (displayed in details tab of Windows Explorer's properties dialog)
--requireAdmin if UAC is enabled, compiled executable run only in elevated context (UAC dialog appears if required)
--virtualize   application virtualization is activated (forcing x86 runtime)
+    inputFile = Powershell script that you want to convert to EXE
+   outputFile = destination EXE file name
+      verbose = output verbose informations - if any
+        debug = generate debug informations for output file
+    runtime20 = this switch forces PS2EXE to create a config file for the generated EXE that contains the
+                "supported .NET Framework versions" setting for .NET Framework 2.0/3.x for PowerShell 2.0
+    runtime40 = this switch forces PS2EXE to create a config file for the generated EXE that contains the
+                "supported .NET Framework versions" setting for .NET Framework 4.x for PowerShell 3.0 or higher
+         lcid = location ID for the compiled EXE. Current user culture if not specified
+          x86 = compile for 32-bit runtime only
+          x64 = compile for 64-bit runtime only
+          sta = Single Thread Apartment Mode
+          mta = Multi Thread Apartment Mode
+    noConsole = the resulting EXE file will be a Windows Forms app without a console window
+credentialGUI = use GUI for prompting credentials in console mode
+     iconFile = icon file name for the compiled EXE
+        title = title information (displayed in details tab of Windows Explorer's properties dialog)
+  description = description information (not displayed, but embedded in executable)
+      company = company information (not displayed, but embedded in executable)
+      product = product information (displayed in details tab of Windows Explorer's properties dialog)
+    copyright = copyright information (displayed in details tab of Windows Explorer's properties dialog)
+    trademark = trademark information (displayed in details tab of Windows Explorer's properties dialog)
+      version = version information (displayed in details tab of Windows Explorer's properties dialog)
+ noConfigfile = write no config file (<outputfile>.exe.config)
+ requireAdmin = if UAC is enabled, compiled EXE run only in elevated context (UAC dialog appears if required)
+   virtualize = application virtualization is activated (forcing x86 runtime)
 
 
 
-A generated executables has some reserved parameters:
+A generated executables has the following reserved parameters:
 
 -debug              Forces the executable to be debugged. It calls "System.Diagnostics.Debugger.Break()".
 -extract:<FILENAME> Extracts the powerShell script inside the executable and saves it as FILENAME.

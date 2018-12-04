@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.27.1
+.VERSION 0.28.1
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -16,6 +16,7 @@
 
 .RELEASENOTES
 
+v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
 v0.27.1:	Добавление очистки папки "Загрузки"
 v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
@@ -112,6 +113,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 
 Write-Host -ForegroundColor Green "Изменения:
+v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
 v0.27.1:	Добавление очистки папки Загрузки
 v0.26.1:	Изменения в очистке кэша браузеров
 v0.25.1:	Отказ от логгирования
@@ -510,20 +512,8 @@ Write-Host -ForegroundColor Red "Закройте все браузеры!"
 ""
 Write-Host -ForegroundColor Gray "*******************************************************"
 ""
-Write-Host -ForegroundColor DarkYellow "Выберите способ вывода информации"
-Write-Host -ForegroundColor DarkYellow "1. Выводить информацию на экран"
-Write-Host -ForegroundColor DarkYellow "2. Выход"
-$Choise_Out = Read-Host "Для продолжения введите номер способа вывода информации"
 
-Switch ($Choise_Out)
-{
-	1 { Choise_Screen }
-	2 {
-		Write-Host -ForegroundColor Red "Выход..."
-		Exit
-	}
-	Default { Write-Host -ForegroundColor Red "Не правильно выбран режим" }
-}
+Choise_Screen
 
 #*******************************************************
 ""

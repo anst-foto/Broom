@@ -1,3 +1,126 @@
+PS2EXE-GUI v0.5.0.13
+Changes:
+- Get-Credential returns $NULL on abort when compiled with -noConsole or -credentialGUI
+- implemented $Host.UI.RawUI.FlushInputBuffer() in console mode
+- $Host.UI.RawUI.FlushInputBuffer() in noConsole mode starts an invisible window to prevent further windows to be opened in the background
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.12):
+line 8 - adjusted version number
+line 21 - adjusted version number
+line 183 - parameters -credentialGUI and -noConfigfile for powershell v2 too
+lines 661 to 664 - implemented FlushInputBuffer() (flush input in console mode, invisible form in noconsole mode)
+line 1688 - PromptForCredential returns null on abort in noconsole mode
+line 1734 - PromptForCredential returns null on abort in noconsole mode
+line 2096 - adjusted version number
+
+
+
+PS2EXE-GUI v0.5.0.12
+Changes:
+- with -NoConsole the prompt for Read-Host is shown now for secure input
+- updated help text
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.11):
+line 8 - adjusted version number
+line 21 - adjusted version number
+lines 45 to 47 - expanded help text
+line 1798 - passing prompt to InputBox now
+line 2094 - adjusted version number
+
+
+
+PS2EXE-GUI v0.5.0.11
+Changes:
+- fixed errors with redirection of error stream and input stream ("handle is invalid")
+- $host.privatedata.ErrorForegroundColor to $host.privatedata.VerboseBackgroundColor set colors in console mode
+(can someone shoot Microsoft in the knee for this strange undocumented implementation)
+- $host.privatedata.ProgressForegroundColor set the color of the progress bar in noConsole mode (when visual styles are not activated)
+- fixed error with failing reference to Consolehost.dll
+- new parameter -credentialGUI to generate graphical GUI for Get-Credential in console mode
+- new parameter -noConfigfile to suppress generation of config file
+- smaller fixes
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.10):
+line 4 - definition of new parameters
+line 8 - adjusted version number
+line 21 - adjusted version number
+lines 49 to 73 - expanded help text
+line 155 - changed information text
+line 261 - fixed error with failing reference to Consolehost.dll
+line 386 - implementation of -credentialGUI
+line 596 - fixed error with redirection of input stream ("handle is invalid")
+line 1195 - set color for progress bar including conversion from ConsoleColor to Drawing.Color
+line 1199 to 1204 - removed redundant object generation
+line 1240 - inserted setting progress bar color
+line 1274 - inserted contructor for setting progress bar color
+line 1327 - inserted functions to check for redirection
+line 1334 - inserted variables for console colors
+line 1540 - implementation of -credentialGUI
+line 1731 to 1736 - optimized WriteDebugLine
+line 1746 to 1751 - optimized WriteErrorLine and implemented error redirection
+line 1800 - implemented setting progress bar color
+line 1815 to 1820 - optimized WriteVerboseLine
+line 1830 to 1835 - optimized WriteWarningLine
+line 1859 - inserted ConsoleProxy and PrivateData (very strange things)
+line 1903 - adjusted version number
+line 1940 to 1970 - removed functions to check for redirection (expanded and moved to line 1327)
+line 2037 - changed check for redirection
+linie 2239 to 2247 - implementation of -noConfigfile
+
+
+
+PS2EXE-GUI v0.5.0.10
+Changes:
+- Get-Credential is assuming a generic login so no "\user" is returned if domain name is not set
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.9):
+line 8 - adjusted version number
+line 21 - adjusted version number
+line 463 - checks for PSCredentialTypes.Generic instead of PSCredentialTypes.Domain now
+line 1903 - adjusted version number
+
+
+
+PS2EXE-GUI v0.5.0.9
+Changes:
+- added takeover of caption and message for $host.UI.PromptForCredential and Get-Credential.
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.8):
+line 8 - adjusted version number
+line 21 - adjusted version number
+lines 389 to 392 - removed comments
+line 437 - added Unicode coding
+line 458 - changed comment
+line 461 - inserted message and caption takeover
+line 474 - changed comment
+line 1905 - adjusted version number
+
+
+
+PS2EXE-GUI v0.5.0.8
+Changes:
+- $ERRORACTIONPREFERENCE = 'Stop' bug corrected. The last error is not swallowed anymore.
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.7):
+line 8 - adjusted version number
+line 21 - adjusted version number
+line 1905 - adjusted version number
+line 2167 - inserted expression to retrieve last error
+
+
+
+PS2EXE-GUI v0.5.0.7
+Changes:
+- parameter parsing bug corrected. A slash is not accepted as an introducing character for named parameters anymore.
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.6):
+line 8 - adjusted version number
+line 21 - adjusted version number
+line 1905 - adjusted version number
+line 2102 - corrected regular expression for parameter parsing
+
+
+
 PS2EXE-GUI v0.5.0.6
 Changes:
 - button texts for input corrected, tries now to use localized strings for OK and Cancel
@@ -7,6 +130,7 @@ line 8 - adjusted version number
 line 21 - adjusted version number
 lines 906 to 959 - get localized strings for OK and Cancel in input bix
 lines 975 to 986 - translated some comments
+line 1809 - adjusted version number
 
 
 
