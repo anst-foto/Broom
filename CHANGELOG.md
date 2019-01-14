@@ -4,6 +4,7 @@
 
 * **Очистка кэша и Корзины, удаление временных файлов \(PowerShell\)**
 * **© Starinin Andrey \(AnSt\), 2017**
+* **© Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг', 2017**
 * [**MIT License**](/LICENSE)
 * **Версия: 0.28.1 \(Декабрь 2018\)**
 * [**GitHub**](https://github.com/anst-foto/Broom) \| [**Gallery TechNet**](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) \| [**PowerShell Gallery**](https://www.powershellgallery.com/packages/Broom)

@@ -6,7 +6,7 @@
 
 .AUTHOR An.St.
 
-.COPYRIGHT © Starinin Andrey (AnSt), 2017
+.COPYRIGHT © Starinin Andrey (AnSt), 2017; © Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг', 2017
 
 .LICENSE MIT License
 
@@ -60,6 +60,7 @@ Write-Host -ForegroundColor Yellow "********************************************
 Write-Host -ForegroundColor Yellow "Broom (Метла)"
 Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
 Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
+Write-Host -ForegroundColor Yellow "(c) Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'. 2017"
 Write-Host -ForegroundColor Yellow "MIT License"
 Write-Host -ForegroundColor Yellow "Версия: 0.27.1 (Ноябрь 2018)"
 ""
@@ -89,7 +90,7 @@ Write-Host -ForegroundColor Gray "**********************************************
 ""
 Write-Host -ForegroundColor Gray "MIT License
 
-Copyright (c) 2017 Starinin Andrey
+Copyright (c) 2017 Starinin Andrey, Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the `'Software`'), to deal
