@@ -4,6 +4,7 @@
 #						Broom_Module
 #				Очистка кэша и Корзины, удаление временных файлов
 #				(c) Starinin Andrey (AnSt). 2017
+#				(c) Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг', 2017
 #				MIT License
 #				Версия: 0.1 (Октябрь 2017)
 #
@@ -19,7 +20,7 @@
 #
 #			MIT License
 #
-#	Copyright (c) 2017 Starinin Andrey
+#	Copyright (c) 2017 Starinin Andrey, Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'
 #
 #	Permission is hereby granted, free of charge, to any person obtaining a copy
 #	of this software and associated documentation files (the `'Software`'), to deal
