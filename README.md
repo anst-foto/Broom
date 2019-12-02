@@ -1,5 +1,6 @@
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/anst-foto/Broom/blob/master/LICENSE)  
 ![Language: PowerShell](https://img.shields.io/badge/language-PowerShell-blue.svg)
+[![CodeFactor](https://www.codefactor.io/repository/github/anst-foto/broom/badge/show-procedure)](https://www.codefactor.io/repository/github/anst-foto/broom/overview/show-procedure)
 
 [![GitHub: Broom](https://img.shields.io/badge/GitHub-Broom-orange.svg)](https://github.com/anst-foto/Broom)  
 [![Gallery TechNet: Broom](https://img.shields.io/badge/Gallery%20TechNet-Broom-orange.svg)](https://gallery.technet.microsoft.com/PowerShell-f24f32cb)  
