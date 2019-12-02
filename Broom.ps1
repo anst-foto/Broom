@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.28.1
+.VERSION 0.29.3
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -16,6 +16,7 @@
 
 .RELEASENOTES
 
+v0.29.3:	Добавление функций вывода сообщений
 v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
 v0.27.1:	Добавление очистки папки "Загрузки"
 v0.26.1:	Изменения в очистке кэша браузеров
@@ -51,104 +52,182 @@ v0.1:	Создание скрипта
 <#
 .DESCRIPTION 
  Очистка кэша и Корзины, удаление временных файлов 
-#> 
+#>
 
-Clear-Host
+Function Show-About {
+	Write-Host -ForegroundColor Yellow "*******************************************************"
+	""
+	Write-Host -ForegroundColor Yellow "Broom (Метла)"
+	Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
+	Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
+	Write-Host -ForegroundColor Yellow "(c) Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'. 2017"
+	Write-Host -ForegroundColor Yellow "MIT License"
+	Write-Host -ForegroundColor Yellow "Версия: 0.29.1 (Декабрь 2019)"
+	""
+	Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
+	Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
+	Write-Host -ForegroundColor Gray "PowerShellGallery - https://www.powershellgallery.com/packages/Broom"
+	""
+	Write-Host -ForegroundColor Gray "***"
+	Write-Host -ForegroundColor Gray "Основано на коде - https://github.com/lemtek/Powershell"
+	Write-Host -ForegroundColor Gray "By Lee Bhogal, Paradise Computing Ltd - June 2014"
+	Write-Host -ForegroundColor Gray "***"
+	""
+	Write-Host -ForegroundColor Gray "***"
+	Write-Host -ForegroundColor Gray "PS2EXE-GUI - https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5"
+	Write-Host -ForegroundColor Gray "License: MS-LPL"
+	Write-Host -ForegroundColor Gray ""
+	Write-Host -ForegroundColor Gray "PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
 
-Write-Host -ForegroundColor Yellow "*******************************************************"
-""
-Write-Host -ForegroundColor Yellow "Broom (Метла)"
-Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
-Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
-Write-Host -ForegroundColor Yellow "(c) Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'. 2017"
-Write-Host -ForegroundColor Yellow "MIT License"
-Write-Host -ForegroundColor Yellow "Версия: 0.27.1 (Ноябрь 2018)"
-""
-Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
-Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
-Write-Host -ForegroundColor Gray "PowerShellGallery - https://www.powershellgallery.com/packages/Broom"
-""
-Write-Host -ForegroundColor Gray "***"
-Write-Host -ForegroundColor Gray "Основано на коде - https://github.com/lemtek/Powershell"
-Write-Host -ForegroundColor Gray "By Lee Bhogal, Paradise Computing Ltd - June 2014"
-Write-Host -ForegroundColor Gray "***"
-""
-Write-Host -ForegroundColor Gray "***"
-Write-Host -ForegroundColor Gray "PS2EXE-GUI - https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5"
-Write-Host -ForegroundColor Gray "License: MS-LPL"
-Write-Host -ForegroundColor Gray ""
-Write-Host -ForegroundColor Gray "PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
+									Overworking of the great script of Igor Karstein with GUI support by Markus Scholtes.
+									The GUI output and input is activated with one switch, real windows executables are generated."
+	Write-Host -ForegroundColor Gray "***"
+	""
+	Write-Host -ForegroundColor Yellow "*******************************************************"
+	""
 
-Overworking of the great script of Igor Karstein with GUI support by Markus Scholtes. 
-The GUI output and input is activated with one switch, real windows executables are generated."
-Write-Host -ForegroundColor Gray "***"
-""
-Write-Host -ForegroundColor Yellow "*******************************************************"
-""
+	Write-Host -ForegroundColor Gray "*******************************************************"
+	""
+	Write-Host -ForegroundColor Gray "MIT License
 
-Write-Host -ForegroundColor Gray "*******************************************************"
-""
-Write-Host -ForegroundColor Gray "MIT License
+	Copyright (c) 2017 Starinin Andrey, Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'
 
-Copyright (c) 2017 Starinin Andrey, Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'
+	Permission is hereby granted, free of charge, to any person obtaining a copy
+	of this software and associated documentation files (the `'Software`'), to deal
+	in the Software without restriction, including without limitation the rights
+	to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+	copies of the Software, and to permit persons to whom the Software is
+	furnished to do so, subject to the following conditions:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the `'Software`'), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+	The above copyright notice and this permission notice shall be included in all
+	copies or substantial portions of the Software.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+	THE SOFTWARE IS PROVIDED `'AS IS`', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+	SOFTWARE."
+	""
+	Write-Host -ForegroundColor Gray "*******************************************************"
+	""
 
-THE SOFTWARE IS PROVIDED `'AS IS`', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE."
-""
-Write-Host -ForegroundColor Gray "*******************************************************"
-""
+	Write-Host -ForegroundColor Green "Изменения:
+	v0.29.3:	Добавление функций вывода сообщений
+	v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
+	v0.27.1:	Добавление очистки папки Загрузки
+	v0.26.1:	Изменения в очистке кэша браузеров
+	v0.25.1:	Отказ от логгирования
+	v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
+	v0.24:	Добавление выбора способа вывода информации: на экран или в файл
+	v0.23:	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)
+	v0.22:	Изменение выводимой информации
+	v0.21:	Перенос функций во внешний модуль (Broom_Module.psm1)
+	v0.20:	Отказ от alias cmdlet
+	v0.19:	Изменение выводимой информации
+	v0.18:	Добавлено логирование сообщений в файл
+	v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
+	v0.16:  Добавление PSScriptInfo
+	v0.15:	Переработана выводимая информация для пользователя
+	v0.14:	Переработка алгоритма удаления Корзины
+	v0.13:	Переименование проекта, изменение иконки
+	v0.12:	Добавление информации о лицензии (MIT License)
+	v0.11:	Очистка Корзины на старых системах
+	v0.10:	Добавление меню режимов очистки
+	v0.9:	Добавление удаления файла со списком пользователей
+	v0.8:	Переделана функция по очистке Корзины
+	v0.7:	Добавлена очистка Яндекс.Браузер, Opera
+	v0.6:	Предупреждение о закрытие браузеров
+	v0.5:	Использование функций
+	v0.4:	Очистка Корзины на старых системах
+	v0.3:	Ожидание нажатия пользователя
+	v0.2:	Очистка временных файлов пользователя
+	v0.1:	Создание скрипта"
+	""
+	Write-Host -ForegroundColor Yellow "*******************************************************"
+	""
+}
 
-Write-Host -ForegroundColor Green "Изменения:
-v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
-v0.27.1:	Добавление очистки папки Загрузки
-v0.26.1:	Изменения в очистке кэша браузеров
-v0.25.1:	Отказ от логгирования
-v0.25:	Добавление обработки ошибок (Try/Catch/Finally)
-v0.24:	Добавление выбора способа вывода информации: на экран или в файл
-v0.23:	Отказ от модульной структуры (из-за проблем с запуском EXE-файла)
-v0.22:	Изменение выводимой информации
-v0.21:	Перенос функций во внешний модуль (Broom_Module.psm1)
-v0.20:	Отказ от alias cmdlet
-v0.19:	Изменение выводимой информации
-v0.18:	Добавлено логирование сообщений в файл
-v0.17:  Компиляция в EXE-файл PS2EXE-GUI v0.5.0.6 by Ingo Karstein, reworked and GUI support by Markus Scholtes
-v0.16:  Добавление PSScriptInfo
-v0.15:	Переработана выводимая информация для пользователя
-v0.14:	Переработка алгоритма удаления Корзины
-v0.13:	Переименование проекта, изменение иконки
-v0.12:	Добавление информации о лицензии (MIT License)
-v0.11:	Очистка Корзины на старых системах
-v0.10:	Добавление меню режимов очистки
-v0.9:	Добавление удаления файла со списком пользователей
-v0.8:	Переделана функция по очистке Корзины
-v0.7:	Добавлена очистка Яндекс.Браузер, Opera
-v0.6:	Предупреждение о закрытие браузеров
-v0.5:	Использование функций
-v0.4:	Очистка Корзины на старых системах
-v0.3:	Ожидание нажатия пользователя
-v0.2:	Очистка временных файлов пользователя
-v0.1:	Создание скрипта"
-""
-Write-Host -ForegroundColor Yellow "*******************************************************"
-""
-#*******************************************************
+Function Show-Warning {
+	""
+	Write-Host -ForegroundColor Red "Закройте все браузеры!"
+	""
+	Write-Host -ForegroundColor Gray "*******************************************************"
+	""
+}
 
+Function Show-End {
+	""
+	Write-Host -ForegroundColor Red "*******************************************************"
+	""
+	Write-Host -ForegroundColor Red "Все задачи выполнены!"
+	""
+	Write-Host -ForegroundColor Red "*******************************************************"
+	""
+}
 
+Function Show-Log_Mozilla {
+	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
+Function Show-Log_Chrome {
+	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
+	Write-Host -ForegroundColor Green "--------------------------"
+	""
+}
+Function Show-Log_Chromium {
+	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
+	Write-Host -ForegroundColor Green "---------------------"
+	""
+}
+Function Show-Log_Yandex {
+	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
+	Write-Host -ForegroundColor Green "---------------------------"
+	""
+}
+Function Show-Log_Opera {
+	Write-Host -ForegroundColor Green "Очистка кэша Opera"
+	Write-Host -ForegroundColor Green "------------------"
+	""
+}
+Function Show-Log_IE {
+	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
+	Write-Host -ForegroundColor Green "------------------------------"
+	""
+}
+Function Show-Log_RecileBin_Temp {
+	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
+	Write-Host -ForegroundColor Green "-------------------------------------------"
+	""
+}
+Function Show-Log_Download {
+	Write-Host -ForegroundColor Green "Очистка папки Загрузки (Downloads)"
+	Write-Host -ForegroundColor Green "-------------------------------------------"
+	""
+}
+
+Function Show-ClearFull {
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов  и папки Загрузки..."
+	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________________________"
+	""
+}
+Function Show-ClearDownloads {
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке папки Загрузки (Downloads)..."
+	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
+	""
+}
+Function Show-ClearRecycleBinTemp {
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке Корзины и удалению временных файлов..."
+	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
+	""
+}
+Function Show-ClearBrowser {
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров..."
+	Write-Host -ForegroundColor DarkGreen "_______________________________________________"
+	""
+}
 
 #*******************************************************
 
@@ -164,7 +243,7 @@ Function Clear_Mozilla ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
         Catch {
-            Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Firefox"
+            Write-Error "ОШИБКА удаления кеша Firefox"
             }
             
         }
@@ -182,7 +261,7 @@ Function Clear_Chrome ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chrome"
+			Write-Error "ОШИБКА удаления кеша Chrome"
 			}
 		}
 }
@@ -200,7 +279,7 @@ Function Clear_Chromium ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Chromium\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Chromium"
+			Write-Error "ОШИБКА удаления кеша Chromium"
 			}
 		}
 }
@@ -219,7 +298,7 @@ Function Clear_Yandex ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			}
         Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Yandex"
+			Write-Error "ОШИБКА удаления кеша Yandex"
 			}
         }
 }
@@ -231,7 +310,7 @@ Function Clear_Opera ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Opera Software\Opera Stable\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша Opera"
+			Write-Error "ОШИБКА удаления кеша Opera"
 			}
 		}
 }
@@ -246,7 +325,7 @@ Function Clear_IE ($a) {
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WebCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             }
 		Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления кеша IE"
+			Write-Error "ОШИБКА удаления кеша IE"
 			}
 		}
 }
@@ -258,7 +337,7 @@ Function Clear_RecileBin_Temp ($a) {
 		$Drives = Get-PSDrive -PSProvider FileSystem
 		}
 	Catch {
-		Write-Host -ForegroundColor Red "ОШИБКА подключения к дискам"
+		Write-Error "ОШИБКА подключения к дискам"
 		}
 	ForEach ($Drive in $Drives)
 	{
@@ -267,7 +346,7 @@ Function Clear_RecileBin_Temp ($a) {
 			Remove-Item -Path $Path_RecicleBin -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			}
 		Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления Recycle.Bin"
+			Write-Error "ОШИБКА удаления Recycle.Bin"
 			}
 	}
 	
@@ -276,7 +355,7 @@ Function Clear_RecileBin_Temp ($a) {
 		Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		}
 	Catch {
-		Write-Host -ForegroundColor Red "ОШИБКА удаления Temp1"
+		Write-Error "ОШИБКА удаления Temp1"
 		}
 	Import-Csv -Path $a | ForEach-Object {
 		Try {
@@ -284,7 +363,7 @@ Function Clear_RecileBin_Temp ($a) {
 			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			}
 		Catch {
-			Write-Host -ForegroundColor Red "ОШИБКА удаления Temp2"
+			Write-Error "ОШИБКА удаления Temp2"
 			}
 	}
 }
@@ -296,7 +375,7 @@ Function Clear_Download ($a) {
         	Remove-Item -Path "C:\Users\$($_.Name)\Downloads\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
     	}
     	Catch {
-        	Write-Host -ForegroundColor Red "ОШИБКА удаления файлов из папки Загрузка"
+        	Write-Error "ОШИБКА удаления файлов из папки Загрузка"
     	}
 	}
 }
@@ -304,11 +383,9 @@ Function Clear_Download ($a) {
 ####
 
 # ClearBrowser
-Function ClearBrowser {	
-	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров"
-	Write-Host -ForegroundColor DarkGreen "____________________________________________"
-	""
-	
+Function ClearBrowser {
+	Show-ClearBrowser
+
 	$Path = "C:\users\$env:USERNAME\users.csv"
 
 	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
@@ -318,54 +395,40 @@ Function ClearBrowser {
 	""
 	If ($List) {
     	# Mozilla Firefox
-    	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
-    	Write-Host -ForegroundColor Green "----------------------------"
-    	""    	
+		Show-Log_Mozilla
     	Clear_Mozilla ($Path)
 
     	# Google Chrome 
-    	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
-    	Write-Host -ForegroundColor Green "--------------------------"
-    	""    	
+		Show-Log_Chrome
     	Clear_Chrome ($Path)
     	
     	# Chromium
-    	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "---------------------"
-    	""    	
+		Show-Log_Chromium
     	Clear_Chromium ($Path)
     	
 		# Yandex
-    	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "---------------------------"
-    	""    	
+		Show-Log_Yandex
     	Clear_Yandex ($Path)
     	
 		# Opera
-    	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "------------------"
-    	""    	
+		Show-Log_Opera
     	Clear_Opera ($Path)
     	
     	# Internet Explorer
-    	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "------------------------------"
-    	""
+		Show-Log_IE
     	Clear_IE ($Path)
     	
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
 		
 	} Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
+		Write-Error "Ошибка!"
 		Exit
     }
 }
 
 # ClearRecileBinTemp
 Function ClearRecycleBinTemp {
-	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке Корзины и удалению временных файлов..."
-	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
-	""
+	Show-ClearRecycleBinTemp
 
 	$Path = "C:\users\$env:USERNAME\users.csv"
 	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
@@ -376,23 +439,19 @@ Function ClearRecycleBinTemp {
 	
 	If ($List) {
 		# RecileBin & Temp
-    	Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "-------------------------------------------"
-    	""
+		Show-Log_RecileBin_Temp
     	Clear_RecileBin_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
     } Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
+		Write-Error "Ошибка!"
 		Exit
     }
 }
 
 # ClearDownloads
-Function ClearDownloads () {
-    Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке папки Загрузки (Downloads)..."
-	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
-	""
-    
+Function ClearDownloads {
+	Show-ClearDownloads
+
     $Path = "C:\users\$env:USERNAME\users.csv"
 	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
 	$List = Test-Path $Path
@@ -402,22 +461,19 @@ Function ClearDownloads () {
 	
 	If ($List) {
 		# Downloads
-    	Write-Host -ForegroundColor Green "Очистка папки Загрузки (Downloads)"
-    	Write-Host -ForegroundColor Green "-------------------------------------------"
-    	""
+		Show-Log_Download
     	Clear_Download ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
     } Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
+		Write-Error "Ошибка!"
 		Exit
     }
 }
 
 # ClearFull
-Function ClearFull {	
-	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров и Корзины, удалению временных файлов  и папки Загрузки..."
-	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________________________"
-	""
+Function ClearFull {
+	Show-ClearFull
+
 	$Path = "C:\users\$env:USERNAME\users.csv"
 	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
 	$List = Test-Path $Path
@@ -425,62 +481,46 @@ Function ClearFull {
 	If ($List) {
     	""
     	# Mozilla Firefox
-    	Write-Host -ForegroundColor Green "Очистка кэша Mozilla Firefox"
-    	Write-Host -ForegroundColor Green "----------------------------"
-    	""
+    	Show-Log_Mozilla
     	Clear_Mozilla ($Path)
     	
     	# Google Chrome 
-    	Write-Host -ForegroundColor Green "Очистка кэша Google Chrome"
-    	Write-Host -ForegroundColor Green "--------------------------"
-    	""
+    	Show-Log_Chrome
     	Clear_Chrome ($Path)
     	
     	# Chromium
-    	Write-Host -ForegroundColor Green "Очистка кэша Chromium"
-    	Write-Host -ForegroundColor Green "---------------------"
-    	""
+    	Show-Log_Chromium
     	Clear_Chromium ($Path)
     	
 		# Yandex
-    	Write-Host -ForegroundColor Green "Очистка кэша Яндекс.Браузер"
-    	Write-Host -ForegroundColor Green "---------------------------"
-    	""
+    	Show-Log_Yandex
     	Clear_Yandex ($Path)
     	
 		# Opera
-    	Write-Host -ForegroundColor Green "Очистка кэша Opera"
-    	Write-Host -ForegroundColor Green "------------------"
-    	""
+    	Show-Log_Opera
     	Clear_Opera ($Path)
     	
     	# Internet Explorer
-    	Write-Host -ForegroundColor Green "Очистка кэша Internet Explorer"
-    	Write-Host -ForegroundColor Green "------------------------------"
-    	""
+    	Show-Log_IE
     	Clear_IE ($Path)
     	
 		# RecileBin & Temp
-        Write-Host -ForegroundColor Green "Очистка Корзины и удаление временных файлов"
-    	Write-Host -ForegroundColor Green "-------------------------------------------"
-    	""
+        Show-Log_RecileBin_Temp
     	Clear_RecileBin_Temp ($Path)
         
         # Downloads
-    	Write-Host -ForegroundColor Green "Очистка папки Загрузки (Downloads)"
-    	Write-Host -ForegroundColor Green "-------------------------------------------"
-    	""
+    	Show-Log_Download
     	Clear_Download ($Path)
 
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
 	} Else {
-		Write-Host -ForegroundColor Red "Ошибка!"
+		Write-Error "Ошибка!"
 		Exit
     }
 }
 
 # Choise
-Function Choise_Screen {
+Function Show-Choise_Screen {
 	""
 	Write-Host -ForegroundColor Yellow "Выберите режим очистки:"
 	Write-Host -ForegroundColor Yellow "1. Очистить только кэши браузеров"
@@ -508,23 +548,13 @@ Function Choise_Screen {
 
 #########################
 
-""
-Write-Host -ForegroundColor Red "Закройте все браузеры!"
-""
-Write-Host -ForegroundColor Gray "*******************************************************"
-""
+Clear-Host
 
-Choise_Screen
+Show-About
+Show-Warning
 
-#*******************************************************
-""
-Write-Host -ForegroundColor Red "*******************************************************"
-""
-Write-Host -ForegroundColor Red "Все задачи выполнены!"
-""
-Write-Host -ForegroundColor Red "*******************************************************"
-""
+Show-Choise_Screen
+
+Show-End
 
 Read-Host "Для выхода нажмите Enter"
-
-#*******************************************************

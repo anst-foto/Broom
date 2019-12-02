@@ -6,7 +6,7 @@
 * **© Starinin Andrey \(AnSt\), 2017**
 * **© Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг', 2017**
 * [**MIT License**](/LICENSE)
-* **Версия: 0.28.1 \(Декабрь 2018\)**
+* **Версия: 0.29.3 \(Декабрь 2018\)**
 * [**GitHub**](https://github.com/anst-foto/Broom) \| [**Gallery TechNet**](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) \| [**PowerShell Gallery**](https://www.powershellgallery.com/packages/Broom)
 * **Основано на коде -** [**Lee Bhogal**](https://github.com/lemtek/Powershell) \| **By Lee Bhogal, Paradise Computing Ltd - June 2014**
 * **Добавлен **[**PS2EXE-GUI**](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5)** для компиляции в EXE-файл** \| **PS2EXE-GUI v0.5.0.13 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
@@ -17,6 +17,7 @@
 
 # Изменения:
 
+* v0.29.3\(Декабрь 2019\):	Добавление функций вывода сообщений
 * v0.28.1\(Декабрь 2018\):	Удаление внешнего модуля \(Broom\_Module.psm1\), корректировка меню
 * v0.27.1\(Ноябрь 2018\):	Добавление очистки папки "Загрузки" \(Downloads\)
 * v0.26.1\(Сентябрь 2018\):	Изменения в очистке кэша браузеров
@@ -46,3 +47,13 @@
 * v0.3:                    Ожидание нажатия пользователя
 * v0.2:                    Очистка временных файлов пользователя
 * v0.1\(Март 2017\):        Создание скрипта
+
+# Нумерация версий:
+Формат - **vX.Y.Z**
+* X - мажорная версия
+* Y - минорная версия
+* Z - номер ветки разработки
+    * 0 - основная ветка
+    * 1 - отказ от логгирования в файл
+    * 2 - добавление "тихого" режима
+    * 3 - добавление функций вывода сообщений
