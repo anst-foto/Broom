@@ -62,7 +62,7 @@ Function Show-About {
 	Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 	Write-Host -ForegroundColor Yellow "(c) Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'. 2017"
 	Write-Host -ForegroundColor Yellow "MIT License"
-	Write-Host -ForegroundColor Yellow "Версия: 0.29.1 (Декабрь 2019)"
+	Write-Host -ForegroundColor Yellow "Версия: 0.29.3 (Декабрь 2019)"
 	""
 	Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
 	Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
