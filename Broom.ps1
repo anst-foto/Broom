@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.29.3
+.VERSION 0.29.3 update 3
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -15,7 +15,12 @@
 .PROJECTURI https://github.com/anst-foto/Broom
 
 .RELEASENOTES
-
+Паралельная ветка развития основаная на коде версии: 0.29.3 (Декабрь 2019)
+v0.29.3_update_1:	Добавление очистки Cent Browser
+v0.29.3_update_2:	Добавил пару временных папок и логи 
+v0.29.3_update_3:	Добавление очистки vivaldi
+	
+	Основной код версия: 0.29.3 (Декабрь 2019)
 v0.29.3:	Добавление функций вывода сообщений
 v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
 v0.27.1:	Добавление очистки папки "Загрузки"
@@ -114,6 +119,12 @@ Function Show-About {
 	""
 
 	Write-Host -ForegroundColor Green "Изменения:
+	Паралельная ветка развития основаная на коде версии: 0.29.3 (Декабрь 2019)
+	v0.29.3_update_1:	Добавление очистки Cent Browser
+	v0.29.3_update_2:	Добавил пару временных папок и логи 
+	v0.29.3_update_3:	Добавление очистки vivaldi
+	
+	Основной код версия: 0.29.3 (Декабрь 2019)
 	v0.29.3:	Добавление функций вывода сообщений
 	v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
 	v0.27.1:	Добавление очистки папки Загрузки
@@ -152,9 +163,18 @@ Function Show-About {
 Function Show-Warning {
 	""
 	Write-Host -ForegroundColor Red "Закройте все браузеры!"
+""
+Write-Host -ForegroundColor Red "vivaldi"
+Write-Host -ForegroundColor Red "CentBrowser"
+Write-Host -ForegroundColor Red "Mozilla Firefox"
+Write-Host -ForegroundColor Red "Google Chrome"
+Write-Host -ForegroundColor Red "Chromium"
+Write-Host -ForegroundColor Red "Яндекс.Браузер"
+Write-Host -ForegroundColor Red "Opera"
+Write-Host -ForegroundColor Red "Internet Explorer"
 	""
 	Write-Host -ForegroundColor Gray "*******************************************************"
-	""
+	
 }
 
 Function Show-End {
@@ -164,6 +184,17 @@ Function Show-End {
 	Write-Host -ForegroundColor Red "Все задачи выполнены!"
 	""
 	Write-Host -ForegroundColor Red "*******************************************************"
+	""
+}
+
+Function Show-Log_Vivaldi {
+	Write-Host -ForegroundColor Green "Очистка кэша Vivaldi"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
+Function Show-Log_CentBrowser {
+	Write-Host -ForegroundColor Green "Очистка кэша Cent Browser"
+	Write-Host -ForegroundColor Green "----------------------------"
 	""
 }
 
@@ -229,7 +260,43 @@ Function Show-ClearBrowser {
 	""
 }
 
-#*******************************************************
+
+
+# Vivaldi
+Function Clear_Vivaldi ($a) {
+	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Code Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            }
+		Catch {
+			Write-Error "ОШИБКА удаления кеша Vivaldi"
+			}
+		}
+}
+
+# CentBrowser
+Function Clear_CentBrowser ($a) {
+	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\Code Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\CentBrowser\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            }
+		Catch {
+			Write-Error "ОШИБКА удаления кеша CentBrowser"
+			}
+		}
+}
 
 # Mozilla Firefox
 Function Clear_Mozilla ($a) {	
@@ -353,6 +420,8 @@ Function Clear_RecileBin_Temp ($a) {
 	#Удаление temp-файлов
 	Try {
 		Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\Windows\Logs*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		}
 	Catch {
 		Write-Error "ОШИБКА удаления Temp1"
@@ -394,6 +463,16 @@ Function ClearBrowser {
 	#*******************************************************
 	""
 	If ($List) {
+	
+	
+		# Vivaldi
+		Show-Log_Vivaldi
+    	Clear_Vivaldi ($Path)
+	
+		# Cent Browser
+		Show-Log_CentBrowser
+    	Clear_CentBrowser ($Path)
+		
     	# Mozilla Firefox
 		Show-Log_Mozilla
     	Clear_Mozilla ($Path)
@@ -480,6 +559,14 @@ Function ClearFull {
 	""
 	If ($List) {
     	""
+		# Vivaldi
+		Show-Log_Vivaldi
+    	Clear_Vivaldi ($Path)		
+		
+		# Cent Browser
+		Show-Log_CentBrowser
+    	Clear_CentBrowser ($Path)
+
     	# Mozilla Firefox
     	Show-Log_Mozilla
     	Clear_Mozilla ($Path)
@@ -550,7 +637,7 @@ Function Show-Choise_Screen {
 
 Clear-Host
 
-Show-About
+##Show-About
 Show-Warning
 
 Show-Choise_Screen
