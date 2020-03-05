@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.29.3 update 3
+.VERSION 0.29.3_update_3
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -13,6 +13,8 @@
 .LICENSEURI https://github.com/anst-foto/Broom/blob/master/LICENSE
 
 .PROJECTURI https://github.com/anst-foto/Broom
+
+.PROJECTURI https://github.com/ZiTLi/Broom
 
 .RELEASENOTES
 Паралельная ветка развития основаная на коде версии: 0.29.3 (Декабрь 2019)
@@ -64,12 +66,16 @@ Function Show-About {
 	""
 	Write-Host -ForegroundColor Yellow "Broom (Метла)"
 	Write-Host -ForegroundColor Yellow "Очистка кэша и Корзины, удаление временных файлов"
+	Write-Host -ForegroundColor Yellow "(c) update by Vlodko Dmitry (ZiTLi). 2020"
 	Write-Host -ForegroundColor Yellow "(c) Starinin Andrey (AnSt). 2017"
 	Write-Host -ForegroundColor Yellow "(c) Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг'. 2017"
 	Write-Host -ForegroundColor Yellow "MIT License"
 	Write-Host -ForegroundColor Yellow "Версия: 0.29.3 (Декабрь 2019)"
+	Write-Host -ForegroundColor Yellow "Версия: update 3 (март 2020)"
 	""
-	Write-Host -ForegroundColor Gray "GitHub - https://github.com/anst-foto/Broom"
+	Write-Host -ForegroundColor Gray "GitHub original - https://github.com/anst-foto/Broom"
+	Write-Host -ForegroundColor Gray "GitHub MOD - https://github.com/ZiTLi/Broom"
+	""
 	Write-Host -ForegroundColor Gray "Gallery TechNet - https://gallery.technet.microsoft.com/PowerShell-f24f32cb"
 	Write-Host -ForegroundColor Gray "PowerShellGallery - https://www.powershellgallery.com/packages/Broom"
 	""
@@ -273,7 +279,7 @@ Function Clear_Vivaldi ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Vivaldi\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            }
+	   	   }
 		Catch {
 			Write-Error "ОШИБКА удаления кеша Vivaldi"
 			}
@@ -302,13 +308,17 @@ Function Clear_CentBrowser ($a) {
 Function Clear_Mozilla ($a) {	
     Import-CSV -Path $a -Header Name | ForEach-Object {
         Try {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\OfflineCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cookies.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\webappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            }
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\OfflineCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\cookies.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\webappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\chromeappsstore.sqlite" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\Crash Reports\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Mozilla\Firefox\Profiles\*.default\weave\logs\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\startupCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Mozilla\Firefox\Profiles\*.default\datareporting\archived\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+			}
         Catch {
             Write-Error "ОШИБКА удаления кеша Firefox"
             }
@@ -422,6 +432,9 @@ Function Clear_RecileBin_Temp ($a) {
 		Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		Remove-Item -Path "C:\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		Remove-Item -Path "C:\Windows\Logs*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\ProgramData\NVIDIA Corporation\GeForce Experience\Logs*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\Windows\System32\sru*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		##Remove-Item -Path "222*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		}
 	Catch {
 		Write-Error "ОШИБКА удаления Temp1"
@@ -637,7 +650,7 @@ Function Show-Choise_Screen {
 
 Clear-Host
 
-##Show-About
+Show-About
 Show-Warning
 
 Show-Choise_Screen
