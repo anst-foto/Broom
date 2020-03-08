@@ -6,7 +6,7 @@
 * **© Starinin Andrey \(AnSt\), 2017**
 * **© Автономное учреждение Воронежской области 'Многофункциональный центр предоставления государственных и муниципальных услуг', 2017**
 * [**MIT License**](/LICENSE)
-* **Версия: 0.29.3_update_3 \(март 2020\)**
+* **Версия: 0.29.3_update_4 \(март 2020\)**
 * [**GitHub**](https://github.com/anst-foto/Broom) \| [**Gallery TechNet**](https://gallery.technet.microsoft.com/PowerShell-f24f32cb) \| [**PowerShell Gallery**](https://www.powershellgallery.com/packages/Broom)
 * **Основано на коде -** [**Lee Bhogal**](https://github.com/lemtek/Powershell) \| **By Lee Bhogal, Paradise Computing Ltd - June 2014**
 * **Добавлен **[**PS2EXE-GUI**](https://gallery.technet.microsoft.com/scriptcenter/PS2EXE-GUI-Convert-e7cb69d5)** для компиляции в EXE-файл** \| **PS2EXE-GUI v0.5.0.13 by Ingo Karstein, reworked and GUI support by Markus Scholtes**
@@ -20,6 +20,7 @@
 	v0.29.3_update_1:	Добавление очистки Cent Browser
 	v0.29.3_update_2:	Добавил пару временных папок и логи 
 	v0.29.3_update_3:	Добавление очистки vivaldi
+	v0.29.3_update_4:  	Добавление очистки браузеров Edge, Edge SxS. Очистка логов Windows. 
 	
 	Основной код:
 * v0.29.3\(Декабрь 2019\):	Добавление функций вывода сообщений
