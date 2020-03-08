@@ -241,14 +241,14 @@ Function Show-ClearRecycleBinTemp {
     Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
     ""
 }
-Function Show-Clear_Browser {
+Function Show-ClearBrowser {
     Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров..."
     Write-Host -ForegroundColor DarkGreen "_______________________________________________"
     ""
 }
 #######################################################
 Function Show-ClearZiTLi {
-    Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке всего кэша Windows"
+    Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша Windows"
     Write-Host -ForegroundColor DarkGreen "_______________________________________________"
     ""
 }
@@ -267,13 +267,13 @@ Function Show-Log_CentBrowser {
     Write-Host -ForegroundColor Green "----------------------------"
     ""
 }
-Function Show-Clear_Browser {
-    Write-Host -ForegroundColor Green "Очистка кэша New Browser"
+Function Show-Log_Fix_Browser {
+    Write-Host -ForegroundColor Green "Очистка кэша новых правил браузера (тест)"
     Write-Host -ForegroundColor Green "----------------------------"
     ""
 }
-Function Show-Clear_Logs {
-    Write-Host -ForegroundColor Green "Очистка кэша Logs"
+Function Show-Log_Clear_Logs {
+    Write-Host -ForegroundColor Green "Очистка кэша Windows - Выполнена"
     Write-Host -ForegroundColor Green "----------------------------"
     ""
 }
@@ -505,7 +505,7 @@ Function Clear_Download ($a) {
 
 ################################################################
 # New update by ZiTLi
-Function Clear_Browser ($a) {    
+Function Fix_Browser ($a) {
     Import-CSV -Path $a -Header Name | ForEach-Object {
         Try {
     # Opera
@@ -602,8 +602,8 @@ Function ClearBrowser {
     ""
     If ($List) {
     # Browser
-    Show-Log_Browser
-    Clear_Browser ($Path)
+    Show-Log_Fix_Browser
+    Fix_Browser ($Path)
 
     # Edge
     Show-Log_Edge
@@ -664,7 +664,7 @@ Function ClearRecycleBinTemp {
     # RecileBin & Temp
     Show-Log_RecileBin_Temp
         Clear_RecileBin_Temp ($Path)
-        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей        
+        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     } Else {
             Write-Error "Ошибка!"
         Exit
@@ -686,7 +686,7 @@ Function ClearDownloads {
     # Downloads
     Show-Log_Download
         Clear_Download ($Path)
-        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей        
+        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     } Else {
             Write-Error "Ошибка!"
         Exit
@@ -704,8 +704,8 @@ Function ClearFull {
     If ($List) {
     ""
     # Browser
-    Show-Log_Browser
-    Clear_Browser ($Path)
+    Show-Log_Fix_Browser
+    Fix_Browser ($Path)
 
     # Edge 
     Show-Log_Edge
@@ -751,7 +751,7 @@ Function ClearFull {
     Show-Log_Download
     Clear_Download ($Path)
 
-        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей        
+        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     } Else {
             Write-Error "Ошибка!"
         Exit
@@ -760,7 +760,7 @@ Function ClearFull {
 
 # Clear ZiTLi New update  TEST
 Function ClearZiTLi {
-    Show-ClearFull
+    Show-ClearZiTLi
 
     $Path = "C:\users\$env:USERNAME\users.csv"
     Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
@@ -770,10 +770,10 @@ Function ClearZiTLi {
         ""
 
     # Logs
-    Show-Log_Logs
-        Clear_Logs ($Path)
+    Show-Log_Clear_Logs
+    Clear_Logs ($Path)
 
-        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей        
+        Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
     } Else {
             Write-Error "Ошибка!"
         Exit
@@ -812,7 +812,7 @@ Function Show-Choise_Screen {
 
 Clear-Host
 
-#Show-About
+Show-About
 Show-Warning
 
 Show-Choise_Screen
