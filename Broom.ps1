@@ -1,6 +1,6 @@
 ﻿<#PSScriptInfo
 
-.VERSION 0.29.3_update_3
+.VERSION 0.29.3_update_4
 
 .GUID 1b158786-70ac-433f-b3f3-87b9e1baac75
 
@@ -21,7 +21,8 @@
 v0.29.3_update_1:	Добавление очистки Cent Browser
 v0.29.3_update_2:	Добавил пару временных папок и логи 
 v0.29.3_update_3:	Добавление очистки vivaldi
-	
+v0.29.3_update_4:	Добавление очистки браузеров Edge, Edge SxS. Очистка логов Windows. 
+
 	Основной код:
 v0.29.3:	Добавление функций вывода сообщений
 v0.28.1:	Удаление внешнего модуля (Broom_Module.psm1), корректировка меню
@@ -129,6 +130,7 @@ Function Show-About {
 	v0.29.3_update_1:	Добавление очистки Cent Browser
 	v0.29.3_update_2:	Добавил пару временных папок и логи 
 	v0.29.3_update_3:	Добавление очистки vivaldi
+	v0.29.3_update_4:	Добавление очистки браузеров Edge, Edge SxS. Очистка логов Windows. 
 	
 	Основной код:
 	v0.29.3:	Добавление функций вывода сообщений
@@ -170,6 +172,7 @@ Function Show-Warning {
 	""
 	Write-Host -ForegroundColor Red "Закройте все браузеры!"
 ""
+Write-Host -ForegroundColor Red "Edge vs Edge SxS"
 Write-Host -ForegroundColor Red "vivaldi"
 Write-Host -ForegroundColor Red "CentBrowser"
 Write-Host -ForegroundColor Red "Mozilla Firefox"
@@ -190,17 +193,6 @@ Function Show-End {
 	Write-Host -ForegroundColor Red "Все задачи выполнены!"
 	""
 	Write-Host -ForegroundColor Red "*******************************************************"
-	""
-}
-
-Function Show-Log_Vivaldi {
-	Write-Host -ForegroundColor Green "Очистка кэша Vivaldi"
-	Write-Host -ForegroundColor Green "----------------------------"
-	""
-}
-Function Show-Log_CentBrowser {
-	Write-Host -ForegroundColor Green "Очистка кэша Cent Browser"
-	Write-Host -ForegroundColor Green "----------------------------"
 	""
 }
 
@@ -260,13 +252,77 @@ Function Show-ClearRecycleBinTemp {
 	Write-Host -ForegroundColor DarkGreen "____________________________________________________________________"
 	""
 }
-Function Show-ClearBrowser {
+Function Show-Clear_Browser {
 	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке кэша браузеров..."
 	Write-Host -ForegroundColor DarkGreen "_______________________________________________"
 	""
 }
+#######################################################
+Function Show-ClearZiTLi {
+	Write-Host -ForegroundColor DarkGreen "Выполняется скрипт по очистке всего кэша Windows"
+	Write-Host -ForegroundColor DarkGreen "_______________________________________________"
+	""
+}
+Function Show-Log_Edge {
+	Write-Host -ForegroundColor Green "Очистка кэша Edge"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
+Function Show-Log_Vivaldi {
+	Write-Host -ForegroundColor Green "Очистка кэша Vivaldi"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
+Function Show-Log_CentBrowser {
+	Write-Host -ForegroundColor Green "Очистка кэша Cent Browser"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
+Function Show-Clear_Browser {
+	Write-Host -ForegroundColor Green "Очистка кэша New Browser"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
+Function Show-Clear_Logs {
+	Write-Host -ForegroundColor Green "Очистка кэша Logs"
+	Write-Host -ForegroundColor Green "----------------------------"
+	""
+}
 
+# Microsoft Edge
+Function Clear_Edge ($a) {
+	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
+	# Update 4 new 
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge\User Data\Default\Storage\ext\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge\User Data\Default\Service Worker\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge\User Data\ShaderCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge SxS\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge SxS\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge SxS\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge SxS\User Data\Default\Storage\ext\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge SxS\User Data\Default\Service Worker\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Edge SxS\User Data\ShaderCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	# update 4 old 
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\MicrosoftEdge\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!001\MicrosoftEdge\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!002\MicrosoftEdge\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!006\MicrosoftEdge\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!121\MicrosoftEdge\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!001\MicrosoftEdge\User\Default\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!002\MicrosoftEdge\User\Default\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\#!121\MicrosoftEdge\User\Default\AppCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Packages\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\AC\Temp|RECURSE\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 
+		}
+		Catch {
+			Write-Error "ОШИБКА удаления кеша Edge"
+			}
+		}
+}
 
 # Vivaldi
 Function Clear_Vivaldi ($a) {
@@ -318,7 +374,7 @@ Function Clear_Mozilla ($a) {
 	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Mozilla\Firefox\Profiles\*.default\weave\logs\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Firefox\Profiles\*.default\startupCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 	Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Mozilla\Firefox\Profiles\*.default\datareporting\archived\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-			}
+		}
         Catch {
             Write-Error "ОШИБКА удаления кеша Firefox"
             }
@@ -333,10 +389,10 @@ Function Clear_Chrome ($a) {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            #Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies-Journal\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\ChromeDWriteFontCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            }
+		}
 		Catch {
 			Write-Error "ОШИБКА удаления кеша Chrome"
 			}
@@ -365,12 +421,12 @@ Function Clear_Chromium ($a) {
 Function Clear_Yandex ($a) {	
 	Import-CSV -Path $a -Header Name | ForEach-Object {
 		Try{
-			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Media Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Pepper Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Application Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	    Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cookies" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Yandex\YandexBrowser\User Data\Default\Cookies-Journal" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 			}
@@ -385,7 +441,7 @@ Function Clear_Opera ($a) {
 	Import-CSV -Path $a -Header Name | ForEach-Object {
 		Try {
             Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Opera Software\Opera Stable\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            }
+		}
 		Catch {
 			Write-Error "ОШИБКА удаления кеша Opera"
 			}
@@ -396,11 +452,11 @@ Function Clear_Opera ($a) {
 Function Clear_IE ($a) {	
     Import-CSV -Path $a | ForEach-Object {
 		Try {
-            Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-	        Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\INetCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-			Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WebCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-            }
+		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\Temporary Internet Files\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\INetCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WebCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		}
 		Catch {
 			Write-Error "ОШИБКА удаления кеша IE"
 			}
@@ -431,10 +487,6 @@ Function Clear_RecileBin_Temp ($a) {
 	Try {
 		Remove-Item -Path "C:\Windows\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		Remove-Item -Path "C:\Temp\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-		Remove-Item -Path "C:\Windows\Logs*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-		Remove-Item -Path "C:\ProgramData\NVIDIA Corporation\GeForce Experience\Logs*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-		Remove-Item -Path "C:\Windows\System32\sru*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
-		##Remove-Item -Path "222*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
 		}
 	Catch {
 		Write-Error "ОШИБКА удаления Temp1"
@@ -462,7 +514,91 @@ Function Clear_Download ($a) {
 	}
 }
 
-####
+################################################################
+# New update by ZiTLi
+Function Clear_Browser ($a) {	
+	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
+	# Opera
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Opera Software\Opera Stable\GPUCache*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Opera Software\Opera Stable\ShaderCache*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Opera Software\Opera Stable\Jump List Icons*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Roaming\Opera Software\Opera Stable\Jump List IconsOld\Jump List Icons*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+
+	# Crome - Cache
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\GPUCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Storage\ext\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Service Worker\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\ShaderCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+
+	# Crome - History
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\History\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Archived History\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Visited Links\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Cookies\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose 
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Web Data\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Current Session\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+#Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Google\Chrome\User Data\Default\Last Session\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		
+	# WaterFox
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Waterfox\Profiles\*.default\cache2\entries\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Waterfox\Profiles\*.default\jumpListCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Mozilla\Waterfox\Profiles\*.default\thumbnails\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+
+		}
+		Catch {
+			Write-Error "ОШИБКА удаления кэш Browser"
+			}
+		}
+}
+
+# New update by ZiTLi
+Function Clear_logs ($a) {	
+	Import-CSV -Path $a -Header Name | ForEach-Object {
+		Try {
+	# Windows Defender
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Network Inspection System\Support\*.log" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Scans\History\CacheManager\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Scans\History\ReportLatency\Latency\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Scans\History\Service\*.log" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Scans\MetaStore\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Support\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Scans\History\Results\Quick\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\Microsoft\Windows Defender\Scans\History\Results\Resource\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	
+	# Windows Error Reporting
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\PCHealth\ErrorRep\QSignoff\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\pchealth\ERRORREP\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\pchealth\helpctr\DataColl\*.xml" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\pchealth\helpctr\OfflineCache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\System32\config\systemprofile\AppData\Local\CrashDumps\*.dmp" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\System32\config\systemprofile\Local Settings\Application Data\CrashDumps\*.dmp" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\SysWOW64\config\systemprofile\AppData\Local\CrashDumps\*.dmp" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\SysWOW64\config\systemprofile\Local Settings\Application Data\CrashDumps\*.dmp" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows\WER\ReportQueue\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+
+	# Windows Installer Cache
+Remove-Item -Path "C:\WindowsInstaller\$PatchCache$\Managed\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+		
+	# Windows Logs
+Remove-Item -Path "C:\Windows\Logs\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\ProgramData\NVIDIA Corporation\GeForce Experience\Logs\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\System32\sru\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\DISM\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+Remove-Item -Path "C:\Windows\APPLOG\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+	
+	# Windows Remote Desktop Cache
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Terminal Server Client\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+
+	# Windows Sidebar 
+Remove-Item -Path "C:\Users\$($_.Name)\AppData\Local\Microsoft\Windows Sidebar\Cache\*" -Recurse -Force -ErrorAction SilentlyContinue -Verbose
+
+		}
+		Catch {
+			Write-Error "ОШИБКА удаления Logs"
+			}
+		}
+}
 
 # ClearBrowser
 Function ClearBrowser {
@@ -476,38 +612,44 @@ Function ClearBrowser {
 	#*******************************************************
 	""
 	If ($List) {
+	# Browser
+	Show-Log_Browser
+	Clear_Browser ($Path)
 	
-	
-		# Vivaldi
-		Show-Log_Vivaldi
+	# Edge 
+	Show-Log_Edge
     	Clear_Vivaldi ($Path)
 	
-		# Cent Browser
-		Show-Log_CentBrowser
-    	Clear_CentBrowser ($Path)
+	# Vivaldi
+	Show-Log_Vivaldi
+    	Clear_Vivaldi ($Path)		
 		
+	# Cent Browser
+	Show-Log_CentBrowser
+    	Clear_CentBrowser ($Path)
+	
     	# Mozilla Firefox
-		Show-Log_Mozilla
+	Show-Log_Mozilla
     	Clear_Mozilla ($Path)
 
     	# Google Chrome 
-		Show-Log_Chrome
+	Show-Log_Chrome
     	Clear_Chrome ($Path)
     	
     	# Chromium
-		Show-Log_Chromium
+	Show-Log_Chromium
     	Clear_Chromium ($Path)
     	
-		# Yandex
-		Show-Log_Yandex
+	# Yandex
+	Show-Log_Yandex
     	Clear_Yandex ($Path)
     	
-		# Opera
-		Show-Log_Opera
+	# Opera
+	Show-Log_Opera
     	Clear_Opera ($Path)
     	
     	# Internet Explorer
-		Show-Log_IE
+	Show-Log_IE
     	Clear_IE ($Path)
     	
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей
@@ -530,8 +672,8 @@ Function ClearRecycleBinTemp {
 	""
 	
 	If ($List) {
-		# RecileBin & Temp
-		Show-Log_RecileBin_Temp
+	# RecileBin & Temp
+	Show-Log_RecileBin_Temp
     	Clear_RecileBin_Temp ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
     } Else {
@@ -552,8 +694,8 @@ Function ClearDownloads {
 	""
 	
 	If ($List) {
-		# Downloads
-		Show-Log_Download
+	# Downloads
+	Show-Log_Download
     	Clear_Download ($Path)
 		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
     } Else {
@@ -572,12 +714,20 @@ Function ClearFull {
 	""
 	If ($List) {
     	""
-		# Vivaldi
-		Show-Log_Vivaldi
+	# Browser
+	Show-Log_Browser
+	Clear_Browser ($Path)
+	
+	# Edge 
+	Show-Log_Edge
+    	Clear_Vivaldi ($Path)
+	
+	# Vivaldi
+	Show-Log_Vivaldi
     	Clear_Vivaldi ($Path)		
 		
-		# Cent Browser
-		Show-Log_CentBrowser
+	# Cent Browser
+	Show-Log_CentBrowser
     	Clear_CentBrowser ($Path)
 
     	# Mozilla Firefox
@@ -592,11 +742,11 @@ Function ClearFull {
     	Show-Log_Chromium
     	Clear_Chromium ($Path)
     	
-		# Yandex
+	# Yandex
     	Show-Log_Yandex
     	Clear_Yandex ($Path)
     	
-		# Opera
+	# Opera
     	Show-Log_Opera
     	Clear_Opera ($Path)
     	
@@ -604,7 +754,7 @@ Function ClearFull {
     	Show-Log_IE
     	Clear_IE ($Path)
     	
-		# RecileBin & Temp
+	# RecileBin & Temp
         Show-Log_RecileBin_Temp
     	Clear_RecileBin_Temp ($Path)
         
@@ -619,15 +769,37 @@ Function ClearFull {
     }
 }
 
+# Clear ZiTLi New update  TEST
+Function ClearZiTLi {
+	Show-ClearFull
+
+	$Path = "C:\users\$env:USERNAME\users.csv"
+	Get-ChildItem C:\Users | Select-Object Name | Export-Csv -Path $Path -NoTypeInformation
+	$List = Test-Path $Path
+	""
+	If ($List) {
+    	""
+	
+	# Logs
+	Show-Log_Logs
+    	Clear_Logs ($Path)
+
+		Remove-Item -Path $Path -Recurse -Force -ErrorAction SilentlyContinue -Verbose # удаление файла со списком пользователей    	
+	} Else {
+		Write-Error "Ошибка!"
+		Exit
+    }
+}
 # Choise
 Function Show-Choise_Screen {
 	""
 	Write-Host -ForegroundColor Yellow "Выберите режим очистки:"
 	Write-Host -ForegroundColor Yellow "1. Очистить только кэши браузеров"
 	Write-Host -ForegroundColor Yellow "2. Очитстить только Корзину и временные файлы (RecycleBin & Temp)"
-    Write-Host -ForegroundColor Yellow "3. Очитстить только папку Загрузки (Downloads)"
+	Write-Host -ForegroundColor Yellow "3. Очитстить только папку Загрузки (Downloads)"
 	Write-Host -ForegroundColor Yellow "4. Очитстить кэши браузеров и Корзину с временными файлами (RecycleBin & Temp) и папкой Загрузки"
-	Write-Host -ForegroundColor Yellow "5. Выход"
+	Write-Host -ForegroundColor Yellow "5. Разный кэш, логи, и остальной безполезный мусор"
+	Write-Host -ForegroundColor Yellow "6. Выход"
 	""
 	Write-Host -ForegroundColor Gray "*******************************************************"
 	""
@@ -636,9 +808,10 @@ Function Show-Choise_Screen {
 	{
 		1 { ClearBrowser }
 		2 { ClearRecycleBinTemp }
-        3 { ClearDownloads }
+		3 { ClearDownloads }
 		4 { ClearFull }
-		5 {		
+		5 { ClearZiTLi }
+		6 {		
 			Write-Host -ForegroundColor Red "Выход..."
 			Exit
 		}
