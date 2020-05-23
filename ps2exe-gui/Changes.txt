@@ -1,3 +1,167 @@
+PS2EXE-GUI v0.5.0.20
+Changes:
+- Application.EnableVisualStyles() as default for GUI applications
+- new parameter -noVisualStyles to prevent this
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.19):
+line 72 - inserted help text for -noVisualStyles
+lines 87 to 88 - adjusted version number and date
+lines 97 to 98 - added parameter -noVisualStyles
+line 102 - adjusted version number
+line 114 - adjusted version number
+lines 128 to 129 - added help text for -noVisualStyles
+line 152 - inserted help text for -noVisualStyles
+line 1093 - inserted form scale mode
+line 1181 - inserted form scale mode
+line 1297 - inserted form scale mode
+line 1430 - inserted form scale mode
+line 2308 - adjusted version number
+line 2366 - inserted Application.EnableVisualStyles()
+
+
+
+PS2EXE-GUI v0.5.0.19
+Changes:
+- converted file from UTF-16 to UTF-8
+- ignore control keys in secure string request in console mode
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.18):
+lines 87 to 88 - adjusted version number and date
+line 102 - adjusted version number
+line 114 - adjusted version number
+line 1983 - inserted check for control key
+line 2308 - adjusted version number
+
+
+
+PS2EXE-GUI v0.5.0.18
+Changes:
+- fixed "unlimited window width for GUI windows" issue in ps2exe.ps1 and Win-PS2EXE
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.17):
+lines 87 to 88 - adjusted version number and date
+line 102 - adjusted version number
+line 114 - adjusted version number
+line 1110 - inserted screen size check
+line 1192 - inserted screen size check
+line 1202 - inserted screen size check
+line 1207 - removed braces
+line 1212 - inserted screen size check
+line 1215 - removed braces
+line 1217 - removed braces
+line 1358 - inserted screen size check
+line 2299 - adjusted version number
+line 2567 - removed comment
+
+
+
+PS2EXE-GUI v0.5.0.17
+Changes:
+- set -noConfigFile as default, introduced parameter -configFile
+- created comment based help
+- removed aliases %, ? and select with full commmandlets
+- several smaller optimizations
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.16):
+before line 1 - comment based help
+lines 4 to 5 - new parameter -configFile
+line 9 - adjusted version number
+line 21 - adjusted version number
+lines 28 to line 32 - moved to line 162
+lines 34 to line 39 - moved to line 190
+lines 44 to 70 - changed help text
+lines 185 to 189 - inserted code for -configFile
+lines 301, 303, 306, 312, 331, 332, 2484, 2494 - removed aliases
+line 2197 - adjusted version number
+lines 2501 - changed for new default -noConfigFile
+
+
+
+PS2EXE-GUI v0.5.0.16
+Changes:
+- introduced parameter -noOutput to supress every standard output (incl. verbose and informational output)
+- introduced parameter -noError to supress every error output (incl. warning and debug output)
+- introduced parameter -supportos to use functions of newest Windows versions (execute [Environment]::OSVersion to see the difference)
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.15):
+lines 1 to 4 - definition of new parameters
+line 8 - adjusted version number
+line 21 - adjusted version number
+line 47 - expanded help text
+lines 69 to 71 - expanded help text
+line 148 - inserted code to check for valid parameters with -supportOS
+line 199 - inserted support for -noOutput and -noError for Powershell V2
+line 202 - inserted support for -supportOS for Powershell V2
+line 333 - added code for supportedOS manifest
+line 345 - inserted code for supportedOS manifest
+line 1880 - added code for -noOutput
+line 1890 - added code for -noOutput
+line 1895 - added code for -noOutput
+line 1900 - added code for -noOutput
+lines 1906 to 1907 - added code for -noError
+line 1910 - added code for -noError
+line 1916 - added code for -noError
+line 1920 - added code for -noError
+line 1923 - added code for -noError
+line 1928 - added code for -noOutput
+line 1932 - added code for -noOutput
+line 1937 - added code for -noOutput
+line 1947 - added code for -noOutput
+line 1950 - inserted code for -noError
+line 1953 - added code for -noOutput
+line 1958 - added code for -noOutput
+line 1983 - added code for -noOutput
+line 1987 - added code for -noOutput
+lines 1993 to 1994 - added code for -noError
+line 1997 - added code for -noError
+line 2164 - adjusted version number
+line 2405 - added code for -noError
+line 2410 - added code for -noError
+line 2487 - added code for supportOS
+
+
+
+PS2EXE-GUI v0.5.0.15
+Changes:
+- introduction of graphical front end "Win-PS2EXE"
+- parameter "output file" is not mandatory anymore, if target filename is not specified source filename is used with extension ".exe"
+- check if output file has extension ".exe" or ".com"
+- PS2EXE's own dialogs (Inputbox, Choicebox, Keypress and Progress form) use the application's icon if present
+- replacement of Write-Host with Write-Output, Write-Warning and Write-Error (affected lines not listed below)
+- cleanup of upper and lower case letters and white space (affected lines not listed below)
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.14):
+line 8 - adjusted version number
+line 41 - check for empty $outputFile removed
+lines 108 to 110 - added code to handle empty $outputFile
+line 121 - inserted code to check if $outputFile has extension ".exe" or ".com"
+line 362 - safer query for empty content
+line 1022 - inserted code to set application's icon for input box if present
+line 1107 - inserted code to set application's icon for choice box if present
+line 1234 - inserted code to set application's icon for keypress form if present
+line 1285 - added code to set application's icon for progress form form if present
+line 2140 - adjusted version number
+
+
+
+PS2EXE-GUI v0.5.0.14
+Changes:
+- introduced parameter -longPaths to support .Net4.62 long paths
+(requirements: 1. Windows 10, 2. "Long Path" policy set, 3. Compile with -longPaths, 4. the generated config file has to be in the same directory as the executable)
+
+List of changes (line numbers are from PS2EXE-GUI v0.5.0.13):
+line 4 - definition of new parameters
+line 8 - adjusted version number
+line 21 - adjusted version number
+line 49 - expanded help text
+line 76 - appended help text
+line 156 - appended parameter checks for -longPaths
+lines 315 to 325 - inserted new manifest configuration for -longPaths parameter
+line 2120 - adjusted version number
+line 2392 - appended config file configuration for -longPaths parameter
+
+
+
 PS2EXE-GUI v0.5.0.13
 Changes:
 - Get-Credential returns $NULL on abort when compiled with -noConsole or -credentialGUI
